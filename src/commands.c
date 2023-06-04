@@ -3,8 +3,7 @@
 #include "database.h"
 
 void iniciarVersionador() {
-    createDirectory(".versionador");
-    createDirectory(".versionador/content");
+    createDatabase();
     printInfo("Versionador iniciado com sucesso.");
 }
 

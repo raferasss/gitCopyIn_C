@@ -8,5 +8,8 @@ void getSnapshotInfo();
 void getVersionContent(const char* identifier, int showContent);
 void changeVersion(const char* identifier);
 void restoreCurrentVersion();
+int versionExists(const char* identifier);
+void backupCurrentFiles(const char* backupPath);
+void restoreVersionFiles(const char* identifier, const char* backupPath);
 
-#endif  // DATABASE_H
+#endif /* DATABASE_H */
