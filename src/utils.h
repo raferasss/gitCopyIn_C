@@ -1,5 +1,6 @@
 #ifndef UTILS_H
 #define UTILS_H
+#include "lista.h"
 
 void printError(const char* message);
 void printInfo(const char* message);
@@ -9,6 +10,6 @@ char* readTextFile(const char* filename);
 void writeTextFile(const char* filename, const char* content);
 int fileExists(const char* filename);
 char* generateUniqueIdentifier();
-
+int contLines(char* path);
 #endif  // UTILS_H
 

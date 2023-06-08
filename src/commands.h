@@ -3,10 +3,11 @@
 
 void iniciarVersionador();
 void adicionarArquivos(int argc, char* argv[]);
-void registrarSnapshot(const char* texto);
+char* registrarSnapshot(const char* texto);
 void exibirLog(int showContent);
 void mostrarVersao(const char* identificador);
 void mudarVersao(const char* identificador);
 void reverterVersaoAtual();
+void  saveSnapshotFilesInContent(char* identifier);
 
 #endif  // COMMANDS_H

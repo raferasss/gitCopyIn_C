@@ -24,8 +24,14 @@ void createDatabase() {
 void addFileToSnapshot(const char* filename) {
      // Marcar o arquivo para ser adicionado ao próximo snapshot
     char* snapshotPath = concatenatePaths(".versionador/snapshots", "next_snapshot.txt");
-    char* fileLine = concatenatePaths(filename, "\n");
-
+    size_t len1 = strlen("\n");
+    size_t len2 = strlen(filename);
+    char* combined = (char*)malloc(len1 + len2 + 2);
+    strcpy(combined, "\n");
+    strcat(combined, "");
+    strcat(combined, filename);
+     
+    char* fileLine = combined;
     FILE* snapshotFile = fopen(snapshotPath, "w");
     if (snapshotFile == NULL) {
         printError("Failed to open snapshot file for appending.");
@@ -41,24 +47,22 @@ void addFileToSnapshot(const char* filename) {
     free(fileLine);
 }
 
-void registerSnapshot(const char* identifier, const char* text) {
+void registerSnapshot(const char* identifier, const char* commit) {
     // Criar um snapshot dos arquivos marcados e registrar no banco de dados
     char* snapshotPath = concatenatePaths(".versionador/snapshots", identifier);
-    writeTextFile(snapshotPath, text);
-    FILE* file = fopen(".versionador/versions.txt", "w");
-    if (file == NULL) {
-        printf("Falha ao abrir o arquivo versions.txt para escrita.\n");
-        return;
-    }
-
-    // Gravar o valor de currentVersionIdentifier no arquivo
-    fprintf(file, "\n%s", identifier);
-
-    // Fechar o arquivo
-    fclose(file);
+    writeTextFile(snapshotPath, commit);
+   
     free(snapshotPath);
 }
+void  setPathToSnapshotIdentifier(const char* identifier){
+    char* path = concatenatePaths(".versionador/content", identifier);
+    createDirectory(path);
+    printInfo("create version path");
+    free(path);
+}
+void moveFileSnapshotToContent(const char* file, const char* identifier){
 
+}
 int getSnapshotInfo() {
     printf("Lista de snapshots:\n");
 
@@ -89,6 +93,7 @@ int getSnapshotInfo() {
             }
 
             free(snapshotPath);
+            free(snapshotText);
         }
     }
 
@@ -140,7 +145,7 @@ void getVersionContent(const char* identifier, int showContent) {
                     printf("Conteúdo:\n%s\n\n", fileContent);
                     free(fileContent);
                 }
-
+                free(fileContent);
                 free(filePath);
             }
         }
@@ -394,4 +399,10 @@ void renameDirectory(const char* oldPath, const char* newPath) {
         printf("Failed to rename directory.\n");
         return;
     }
+}
+
+void addContent(const char* text, char* identifier){
+    char* nameFile = concatenatePaths(identifier, text);
+    char* file = concatenatePaths(".versionador/content", nameFile);
+    writeTextFile(file, "OI MAMAE");
 }

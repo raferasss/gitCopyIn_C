@@ -30,5 +30,7 @@ void copyDirectory(const char* sourceDir, const char* destDir);
 void copyFile(const char* sourceFile, const char* destFile);
 void removeDirectory(const char* path);
 void renameDirectory(const char* oldPath, const char* newPath);
+void setPathToSnapshotIdentifier(const char* identifier);
+void addContent( const char* text, char* identifier);
 
 #endif /* DATABASE_H */

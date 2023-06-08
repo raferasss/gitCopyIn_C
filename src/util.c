@@ -5,6 +5,7 @@
 #include <time.h>
 #include "database.h"
 #include <sys/stat.h>
+#include "lista.h"
 
 
 void printError(const char* message) {
@@ -22,7 +23,32 @@ void createDirectory(const char* path) {
         exit(1);
     }
 }
+int contLines(char* path){
+     // nome e local do arquivo que será aberto para
+  // obtermos a quantidade de linhas
+  FILE *arquivo = fopen(path, "r");
+  
+  
+  int quant_linhas = 0;
+  int caractere, existe_linhas = 0;
+   
+  while((caractere = fgetc(arquivo)) != EOF){
+    existe_linhas = 1; // há conteúdo no arquivo
+     
+    if(caractere == '\n'){ // é uma quebra de linha?
+      // vamos incrementar a quantidade de linhas
+      quant_linhas++;             
+    } 
+  }
+ 
+  // se não houver uma quebra de linha na última linha
+  // a contagem será sempre um a menos. Assim, é melhor
+  // incrementar quant_linhas mais uma vez
+  if(existe_linhas)
+    quant_linhas++;
 
+    return quant_linhas;
+}
 char* concatenatePaths(const char* path1, const char* path2) {
     size_t len1 = strlen(path1);
     size_t len2 = strlen(path2);
@@ -50,6 +76,7 @@ char* readTextFile(const char* filename) {
 
     fclose(file);
     return content;
+    
 }
 
 void writeTextFile(const char* filename, const char* content) {

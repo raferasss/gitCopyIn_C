@@ -18,6 +18,10 @@ void mudarAtual();
 
 int main(int argc, char *argv[]) {
     // Verifica o número de argumentos
+   
+    iniciar();
+    addFileToSnapshot("jerico.txt");
+    registra("meu comit");
     if (argc < 2) {
         printf("Uso: versionador.exe <comando> [argumentos]\n");
         return 1;
@@ -29,6 +33,7 @@ int main(int argc, char *argv[]) {
     // Chama a função correspondente ao comando
     if (strcmp(comando, "iniciar") == 0) {
         iniciar();
+        
     } else if (strcmp(comando, "adiciona") == 0) {
         adiciona(argc, argv);
     } else if (strcmp(comando, "registra") == 0) {
@@ -86,10 +91,9 @@ void adiciona(int argc, char* argv[]) {
 }
 
 void registra(char* texto) {
-    char* identifier = generateUniqueIdentifier();
-    registerSnapshot(identifier, texto);
-    printf("Snapshot registrado com sucesso. Identificador: %s", identifier);
-    free(identifier);
+    char* id = registrarSnapshot(texto);
+    saveSnapshotFilesInContent(id);
+    free(id);
 }
 
 void exibirlog() {

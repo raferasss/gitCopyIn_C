@@ -3,6 +3,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "database.h"
+#include "lista.h"
+
+
+
 
 void iniciarVersionador() {
     createDatabase();
@@ -20,11 +24,11 @@ void adicionarArquivos(int argc, char* argv[]) {
     }
 }
 
-void registrarSnapshot(const char* texto) {
+char* registrarSnapshot(const char* texto) {
     char* identifier = generateUniqueIdentifier();
     registerSnapshot(identifier, texto);
     printf("Snapshot registrado com sucesso. Identificador: %s", identifier);
-    free(identifier);
+    return identifier;
 }
 
 void exibirLog(int showContent) {
@@ -58,3 +62,24 @@ void reverterVersaoAtual() {
     restoreCurrentVersion();
     printInfo("Versão atual revertida com sucesso.");
 }
+
+void  saveSnapshotFilesInContent(char* identifier){
+    char* text = readTextFile("jerico.txt");
+    setPathToSnapshotIdentifier(identifier);
+    Lista* paths = lst_cria();
+    printInfo(text);
+    free(text);
+    text = readTextFile("jerico.txt");
+    lst_populateList(".versionador/snapshots/next_snapshot.txt", paths);
+    printInfo(text);
+    free(text);
+    text = readTextFile("jerico.txt");
+    lst_infoSetAddContent(paths, identifier);
+    lst_libera(paths);
+    printInfo(text);
+    free(text);
+
+}
+
+
+

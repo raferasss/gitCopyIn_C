@@ -1,5 +1,3 @@
-Estrutura das pastas 
-```
 versionador/
 ├── .versionador/
 │   ├── versions.txt      // Arquivo de versões
@@ -16,4 +14,3 @@ versionador/
 │   ├── commands.h        // Cabeçalho das funções dos comandos
 │   └── database.h        // Cabeçalho das funções do banco de dados
 └── README.md             // Documentação
-```
