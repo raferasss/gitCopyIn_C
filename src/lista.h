@@ -13,6 +13,8 @@ void lst_retira(Lista *header, char* text);
 int lst_vazia(Lista *header);
 void lst_libera(Lista *header);
 void lst_populateList(char* path, Lista* header);
-void lst_infoSetAddContent (Lista *header, char* identifier);
+ListaNo* lst_returnNodeValid(Lista *header);
+ListaNo* lst_nextNode(ListaNo *ptr);
+char* lst_infoValid(ListaNo *ptr);
 
 #endif

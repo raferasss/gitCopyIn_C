@@ -60,6 +60,8 @@ char* concatenatePaths(const char* path1, const char* path2) {
 }
 
 char* readTextFile(const char* filename) {
+
+
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
         printError("Failed to open file for reading.");

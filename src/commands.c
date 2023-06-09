@@ -64,20 +64,27 @@ void reverterVersaoAtual() {
 }
 
 void  saveSnapshotFilesInContent(char* identifier){
-    char* text = readTextFile("jerico.txt");
     setPathToSnapshotIdentifier(identifier);
-    Lista* paths = lst_cria();
-    printInfo(text);
-    free(text);
-    text = readTextFile("jerico.txt");
-    lst_populateList(".versionador/snapshots/next_snapshot.txt", paths);
-    printInfo(text);
-    free(text);
-    text = readTextFile("jerico.txt");
-    lst_infoSetAddContent(paths, identifier);
-    lst_libera(paths);
-    printInfo(text);
-    free(text);
+    Lista* header = lst_cria();
+    lst_populateList(".versionador/snapshots/next_snapshot.txt", header);
+    ListaNo* ptr = lst_returnNodeValid(header);
+    if(ptr == NULL)
+    return;
+
+    const char* info = lst_infoValid(ptr);
+    printInfo(readTextFile(info));
+    printInfo(readTextFile("jerico.txt"));
+    while (info != NULL)
+    {   
+        
+        addContent(identifier, info);
+        ptr = lst_nextNode(ptr);
+        info = lst_infoValid(ptr);
+    }
+    
+    free(info);
+    free(ptr);
+    lst_libera(header);
 
 }
 

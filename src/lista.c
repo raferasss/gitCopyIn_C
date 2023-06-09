@@ -30,20 +30,44 @@ void lst_insere(Lista *header, char* text)
 }
 
 void lst_populateList(char* path, Lista* header){
-    FILE  *arquivo = fopen(path, "r");
-    if(arquivo == NULL){
+    FILE* file = fopen(path, "r");
+    if(file == NULL){
     printError("nulo");
         return;
     }
-        while(!feof(arquivo)){
-            ListaNo *novo = (ListaNo*) malloc(sizeof(ListaNo));
-            fgets(novo->info,50, arquivo);
-            novo->proximo = header->primeiro;
-            header->primeiro = novo;
-        }
+    fseek(file, 0, SEEK_END);
+    long fileLength = ftell(file);
+    fseek(file, 0, SEEK_SET);
 
-    lst_imprime(header);
-    free(arquivo);
+    char* content = (char*)malloc(fileLength + 1);
+    fread(content, 1, fileLength, file);
+    content[fileLength] = '\0';
+
+
+    int i = 0;
+    char palavra[100]; // Tamanho máximo da palavra definido como 100
+    int j = 0;
+    
+    while (content[i] != '\0') {
+        if (content[i] == '\n') {
+            palavra[j] = '\0'; // Adiciona o caractere nulo para indicar o fim da palavra
+            printInfo(palavra);
+            ListaNo *novo = (ListaNo*) malloc(sizeof(ListaNo));
+            
+            novo->info = palavra;
+            
+            novo->proximo = header->primeiro;
+            header->primeiro = novo; // Imprime a palavra completa
+            j = 0; // Reseta o índice para a próxima palavra
+        } else {
+            palavra[j] = content[i]; // Armazena o caractere na palavra
+            j++;
+        }
+        i++;
+    }
+
+    fclose(file);
+    
 }
 
 void lst_imprime(Lista *header)
@@ -107,18 +131,27 @@ void lst_libera(Lista *header)
 
     free(header);
 }
+ListaNo* lst_returnNodeValid(Lista *header){
+    if(header->primeiro != NULL)
+    return header->primeiro;
+    
+    printError("lista vazia");
 
-void lst_infoSetAddContent (Lista *header, char* identifier)
+    return NULL;
+}
+ListaNo* lst_nextNode(ListaNo *ptr){
+    if(ptr != NULL)
+    return ptr->proximo;
+
+    printError("no invalido");
+
+    return NULL;
+}
+char* lst_infoValid(ListaNo *ptr)
 {
-    ListaNo *ptr = header->primeiro;
-    while(ptr != NULL)
-    {   
-        if(ptr ->proximo!= NULL){
-            
-            addContent(ptr->info, identifier);
-          
-        }
-        ptr = ptr -> proximo;
+        if(ptr != NULL)
+        return ptr->info;
+        
+        return NULL;
          
-    }
 }

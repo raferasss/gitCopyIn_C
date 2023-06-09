@@ -5,6 +5,7 @@
 #include "commands.h"
 #include "utils.h"
 #include "database.h"
+#include "lista.h"
 
 // Protótipos das funções
 void iniciar();

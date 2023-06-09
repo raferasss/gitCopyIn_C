@@ -9,6 +9,7 @@
 #include <sys/stat.h>
 #include <unistd.h> 
 #include <string.h>
+#include "lista.h"
 
 
 Version versions[MAX_NUM_VERSIONS];
@@ -27,9 +28,9 @@ void addFileToSnapshot(const char* filename) {
     size_t len1 = strlen("\n");
     size_t len2 = strlen(filename);
     char* combined = (char*)malloc(len1 + len2 + 2);
-    strcpy(combined, "\n");
+    strcpy(combined, filename);
     strcat(combined, "");
-    strcat(combined, filename);
+    strcat(combined, "\n");
      
     char* fileLine = combined;
     FILE* snapshotFile = fopen(snapshotPath, "w");
@@ -401,8 +402,9 @@ void renameDirectory(const char* oldPath, const char* newPath) {
     }
 }
 
-void addContent(const char* text, char* identifier){
-    char* nameFile = concatenatePaths(identifier, text);
-    char* file = concatenatePaths(".versionador/content", nameFile);
-    writeTextFile(file, "OI MAMAE");
+void addContent(  char* identifier, char* text){
+    char* file = concatenatePaths(".versionador/content", concatenatePaths(identifier, text));
+    printInfo(text);
+    writeTextFile(file, readTextFile(text));
+    free(file);
 }
