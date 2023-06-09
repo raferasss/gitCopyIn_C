@@ -19,7 +19,7 @@ void createDatabase() {
     createDirectory(".versionador");
     createDirectory(".versionador/content");
     createDirectory(".versionador/snapshots");
-    writeTextFile(".versionador/versions.txt", "\n");
+    writeTextFile(".versionador/versions.txt", "");
 }
 
 void addFileToSnapshot(const char* filename) {
@@ -57,6 +57,7 @@ void registerSnapshot(const char* identifier, const char* commit) {
 }
 void  setPathToSnapshotIdentifier(const char* identifier){
     char* path = concatenatePaths(".versionador/content", identifier);
+    writeTextFileNextLine(".versionador/versions.txt", identifier);
     createDirectory(path);
     printInfo("create version path");
     free(path);
@@ -84,6 +85,7 @@ int getSnapshotInfo() {
             // Construir o caminho completo para o arquivo do snapshot
             char* snapshotPath = concatenatePaths(".versionador/snapshots", identifier);
 
+
             // Ler o texto do snapshot
             char* snapshotText = readTextFile(snapshotPath);
             if (snapshotText != NULL) {
@@ -94,7 +96,6 @@ int getSnapshotInfo() {
             }
 
             free(snapshotPath);
-            free(snapshotText);
         }
     }
 
@@ -109,9 +110,11 @@ void getVersionContent(const char* identifier, int showContent) {
 
     // Construir o caminho completo para o arquivo do snapshot
     char* snapshotPath = concatenatePaths(".versionador/snapshots", identifier);
+   
 
     // Ler o texto do snapshot
     char* snapshotText = readTextFile(snapshotPath);
+
     if (snapshotText != NULL) {
         printf("Texto registrado para a versão %s:\n", identifier);
         printf("%s\n\n", snapshotText);
@@ -141,12 +144,12 @@ void getVersionContent(const char* identifier, int showContent) {
 
                 // Ler o conteúdo do arquivo
                 char* fileContent = readTextFile(filePath);
+              
                 if (fileContent != NULL) {
                     printf("Arquivo: %s\n", entry->d_name);
                     printf("Conteúdo:\n%s\n\n", fileContent);
                     free(fileContent);
                 }
-                free(fileContent);
                 free(filePath);
             }
         }
@@ -156,6 +159,7 @@ void getVersionContent(const char* identifier, int showContent) {
     }
 
     free(snapshotPath);
+    
 }
 
 void changeVersion(const char* identifier) {
@@ -272,9 +276,10 @@ char* getCurrentVersionIdentifier() {
     // Ler o identificador da versão atual do arquivo versions.txt
     char* versionsText = readTextFile(versionsFile);
     if (versionsText != NULL) {
-        printf("entrei na função");
         // Obter a última linha do arquivo
-        char* lastLine = strrchr(versionsText, '\n');
+        char* lastLine1 = strrchr(versionsText, '\n');
+        char* lastLine;
+        strcpy(lastLine, lastLine1 + 1);
         if (lastLine != NULL) {
             // Obter o identificador da versão
             size_t length = strlen(lastLine);
@@ -402,9 +407,19 @@ void renameDirectory(const char* oldPath, const char* newPath) {
     }
 }
 
-void addContent(  char* identifier, char* text){
-    char* file = concatenatePaths(".versionador/content", concatenatePaths(identifier, text));
-    printInfo(text);
-    writeTextFile(file, readTextFile(text));
+void addContent( char* identifier,const char* text){
+    char filename[100];
+    int i = 0;
+    int j = 0;
+   
+   while (text[i] != '\0') {
+            filename[j] = text[i]; // Armazena o caractere na palavra
+            j++;
+            i++;
+    }
+    filename[j] = '\0';
+    char* file = concatenatePaths(".versionador/content", concatenatePaths(identifier, filename));
+    printInfo(filename);
+    writeTextFile(file, readTextFile(filename));
     free(file);
 }

@@ -5,6 +5,7 @@
 #include <time.h>
 #include "database.h"
 #include <sys/stat.h>
+#include <unistd.h>
 #include "lista.h"
 
 
@@ -59,8 +60,18 @@ char* concatenatePaths(const char* path1, const char* path2) {
     return combined;
 }
 
-char* readTextFile(const char* filename) {
-
+char* readTextFile(const char* name) {
+    char filename[100];
+    int i = 0;
+    int j = 0;
+   
+   while (name[i] != '\0') {
+            filename[j] = name[i]; // Armazena o caractere na palavra
+            j++;
+            i++;
+    }
+    filename[j] = '\0';
+    printInfo(filename);
 
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
@@ -79,6 +90,28 @@ char* readTextFile(const char* filename) {
     fclose(file);
     return content;
     
+}
+void writeTextFileNextLine(const char* name, const char* text){
+    char filename[100];
+    int i = 0;
+    int j = 0;
+   
+   while (name[i] != '\0') {
+            filename[j] = name[i]; // Armazena o caractere na palavra
+            j++;
+            i++;
+    }
+    filename[j] = '\0';
+    printInfo(filename);
+
+    FILE* file = fopen(filename, "a");
+    if (file == NULL) {
+        printError("Failed to open file for reading.");
+        return;
+    }
+    fputc('\n', file);
+    fputs(text, file);
+    fclose(file);
 }
 
 void writeTextFile(const char* filename, const char* content) {
@@ -131,4 +164,20 @@ const char* getVersionIdentifier(int versionIndex) {
     strncpy(identifier, versions[versionIndex].identifier, MAX_IDENTIFIER_LENGTH);
     
     return identifier;
+}
+
+void removeFile(char* file) {
+    // Verificar se o arquivo existe
+    if (access(file, F_OK) != 0) {
+        printf("O arquivo %s não existe.\n", file);
+        return;
+    }
+
+    // Remover o arquivo
+    int result = remove(file);
+    if (result == 0) {
+        printf("O arquivo %s foi removido com sucesso.\n", file);
+    } else {
+        printf("Falha ao remover o arquivo %s.\n", file);
+    }
 }

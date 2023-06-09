@@ -20,9 +20,10 @@ void mudarAtual();
 int main(int argc, char *argv[]) {
     // Verifica o número de argumentos
    
-    iniciar();
-    addFileToSnapshot("jerico.txt");
-    registra("meu comit");
+    //iniciar();
+    //addFileToSnapshot("jerico.txt");
+    //registra("meu comit");
+    //logComConteudo();
     if (argc < 2) {
         printf("Uso: versionador.exe <comando> [argumentos]\n");
         return 1;

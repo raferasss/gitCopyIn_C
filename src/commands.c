@@ -71,9 +71,7 @@ void  saveSnapshotFilesInContent(char* identifier){
     if(ptr == NULL)
     return;
 
-    const char* info = lst_infoValid(ptr);
-    printInfo(readTextFile(info));
-    printInfo(readTextFile("jerico.txt"));
+    char* info = lst_infoValid(ptr);
     while (info != NULL)
     {   
         
@@ -81,12 +79,12 @@ void  saveSnapshotFilesInContent(char* identifier){
         ptr = lst_nextNode(ptr);
         info = lst_infoValid(ptr);
     }
+    removeFile(".versionador/snapshots/next_snapshot.txt");
     
     free(info);
     free(ptr);
     lst_libera(header);
 
 }
-
 
 
