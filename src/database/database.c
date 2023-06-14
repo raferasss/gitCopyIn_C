@@ -1,6 +1,6 @@
 #define _DEFAULT_SOURCE
-#include "database.h"
-#include "utils.h"
+#include "../database/database.h"
+#include "../utils/utils.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <dirent.h>
@@ -9,7 +9,7 @@
 #include <sys/stat.h>
 #include <unistd.h> 
 #include <string.h>
-#include "lista.h"
+#include "../utils/lista.h"
 
 
 Version versions[MAX_NUM_VERSIONS];

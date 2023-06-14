@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "commands.h"
-#include "utils.h"
-#include "database.h"
-#include "lista.h"
+#include "commands/commands.h"
+#include "utils/utils.h"
+#include "database/database.h"
+#include "utils/lista.h"
 
 // Protótipos das funções
 void iniciar();
@@ -20,11 +20,7 @@ void mudarAtual();
 int main(int argc, char *argv[]) {
     // Verifica o número de argumentos
    
-    //iniciar();
-    //addFileToSnapshot("jerico.txt");
-    //registra("meu comit");
-    //logComConteudo();
-    mudar("20230612225054");
+    
     if (argc < 2) {
         printf("Uso: versionador.exe <comando> [argumentos]\n");
         return 1;
@@ -138,3 +134,4 @@ void mudarAtual() {
     restoreCurrentVersion();
     printInfo("Versão atual revertida com sucesso.");
 }
+

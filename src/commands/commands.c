@@ -1,9 +1,9 @@
 #include "commands.h"
-#include "utils.h"
+#include "../utils/utils.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "database.h"
-#include "lista.h"
+#include "../database/database.h"
+#include "../utils/lista.h"
 
 
 
@@ -87,7 +87,7 @@ void  saveSnapshotFilesInContent(const char* identifier){
 
 }
 
-void getLogsContent(const char* file){
+void getLogsContent(char* file){
     Lista* header = lst_cria();
     lst_populateList(file, header);
     ListaNo* ptr = lst_returnNodeValid(header);

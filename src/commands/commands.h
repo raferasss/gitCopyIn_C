@@ -9,6 +9,6 @@ void mostrarVersao(const char* identificador);
 void mudarVersao(const char* identificador);
 void reverterVersaoAtual();
 void  saveSnapshotFilesInContent(const char* identifier);
-void getLogsContent(const char* file);
+void getLogsContent(char* file);
 
 #endif  // COMMANDS_H

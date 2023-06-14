@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include "utils.h"
-#include "database.h"
+#include "../database/database.h"
 
 struct lista_no {
     char* info;
