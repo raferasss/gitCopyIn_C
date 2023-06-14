@@ -24,6 +24,7 @@ int main(int argc, char *argv[]) {
     //addFileToSnapshot("jerico.txt");
     //registra("meu comit");
     //logComConteudo();
+    mudar("20230612225054");
     if (argc < 2) {
         printf("Uso: versionador.exe <comando> [argumentos]\n");
         return 1;
@@ -47,9 +48,14 @@ int main(int argc, char *argv[]) {
         char *texto = argv[2];
         registra(texto);
     } else if (strcmp(comando, "log") == 0) {
-        exibirlog();
-    } else if (strcmp(comando, "log --conteudo") == 0) {
-        logComConteudo();
+        for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i], "--conteudo") == 0) {
+            logComConteudo();
+        }else{
+            exibirlog();
+        }
+        }
+        
     } else if (strcmp(comando, "mostrar") == 0) {
         // Verifica se foi fornecido o identificador da versão
         if (argc < 3) {
@@ -111,12 +117,9 @@ void exibirlog() {
 void logComConteudo() {
     int numVersions = getSnapshotInfo();
     printInfo("Exibindo conteúdo dos arquivos nas versões:");
-
-    for (int i = 0; i < numVersions; i++) {
-        const char* versionIdentifier = getCurrentVersionIdentifier(i);
-        printf("Versão %d: %s\n", i, versionIdentifier);
-        getVersionContent(versionIdentifier, 1);
-    }
+    getLogsContent(".versionador/versions.txt");
+    
+    
 }
 
 void mostrar(char* identificador) {

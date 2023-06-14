@@ -30,18 +30,7 @@ void lst_insere(Lista *header, char* text)
 }
 
 void lst_populateList(char* path, Lista* header){
-    FILE* file = fopen(path, "r");
-    if(file == NULL){
-    printError("nulo");
-        return;
-    }
-    fseek(file, 0, SEEK_END);
-    long fileLength = ftell(file);
-    fseek(file, 0, SEEK_SET);
-
-    char* content = (char*)malloc(fileLength + 1);
-    fread(content, 1, fileLength, file);
-    content[fileLength] = '\0';
+    char* content = readTextFile(path);
 
 
     int i = 0;
@@ -65,8 +54,6 @@ void lst_populateList(char* path, Lista* header){
         }
         i++;
     }
-
-    fclose(file);
     
 }
 

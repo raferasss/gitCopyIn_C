@@ -8,6 +8,7 @@ void exibirLog(int showContent);
 void mostrarVersao(const char* identificador);
 void mudarVersao(const char* identificador);
 void reverterVersaoAtual();
-void  saveSnapshotFilesInContent(char* identifier);
+void  saveSnapshotFilesInContent(const char* identifier);
+void getLogsContent(const char* file);
 
 #endif  // COMMANDS_H

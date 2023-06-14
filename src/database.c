@@ -32,20 +32,20 @@ void addFileToSnapshot(const char* filename) {
     strcat(combined, "");
     strcat(combined, "\n");
      
-    char* fileLine = combined;
     FILE* snapshotFile = fopen(snapshotPath, "w");
     if (snapshotFile == NULL) {
         printError("Failed to open snapshot file for appending.");
         free(snapshotPath);
-        free(fileLine);
+       
+        free(combined);
         return;
     }
 
-    fputs(fileLine, snapshotFile);
-
+    fputs(combined, snapshotFile);
     fclose(snapshotFile);
+    free(combined);
     free(snapshotPath);
-    free(fileLine);
+
 }
 
 void registerSnapshot(const char* identifier, const char* commit) {
@@ -103,11 +103,21 @@ int getSnapshotInfo() {
     return numVersions;
 }
 
-void getVersionContent(const char* identifier, int showContent) {
+void getVersionContent(const char* id, int showContent) {
+    char identifier[100];
+    int i = 0;
+    int j = 0;
+   
+   while (id[i] != '\0') {
+            identifier[j] = id[i]; // Armazena o caractere na palavra
+            j++;
+            i++;
+    }
+    identifier[j] = '\0';
     // Obter o texto registrado para a versão com o identificador especificado
     // Obter o conteúdo dos arquivos versionados naquela versão
     // Se showContent for verdadeiro, exibir o conteúdo dos arquivos no console
-
+    printInfo(identifier);
     // Construir o caminho completo para o arquivo do snapshot
     char* snapshotPath = concatenatePaths(".versionador/snapshots", identifier);
    
@@ -233,9 +243,6 @@ void backupCurrentFiles(const char* backupPath) {
     // Construir o caminho completo para a pasta de conteúdo
     char* contentPath = concatenatePaths(".versionador/content", getCurrentVersionIdentifier());
 
-    // Criar a pasta de backup
-    createDirectory(backupPath);
-
     // Copiar todos os arquivos da pasta de conteúdo para a pasta de backup
     copyDirectory(contentPath, backupPath);
 
@@ -293,9 +300,7 @@ char* getCurrentVersionIdentifier() {
     return currentVersionIdentifier;
 }
 
-void copyDirectory(const char* sourceDir, const char* destDir) {
-    // Criar a pasta de destino
-    createDirectory(destDir);
+void copyDirectory(const char* sourceDir, const char* destDir) { 
 
     // Abrir o diretório de origem
     DIR* dir = opendir(sourceDir);
@@ -407,7 +412,7 @@ void renameDirectory(const char* oldPath, const char* newPath) {
     }
 }
 
-void addContent( char* identifier,const char* text){
+void addContent( const char* identifier,const char* text){
     char filename[100];
     int i = 0;
     int j = 0;

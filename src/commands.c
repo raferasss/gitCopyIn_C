@@ -63,7 +63,7 @@ void reverterVersaoAtual() {
     printInfo("Versão atual revertida com sucesso.");
 }
 
-void  saveSnapshotFilesInContent(char* identifier){
+void  saveSnapshotFilesInContent(const char* identifier){
     setPathToSnapshotIdentifier(identifier);
     Lista* header = lst_cria();
     lst_populateList(".versionador/snapshots/next_snapshot.txt", header);
@@ -85,6 +85,29 @@ void  saveSnapshotFilesInContent(char* identifier){
     free(ptr);
     lst_libera(header);
 
+}
+
+void getLogsContent(const char* file){
+    Lista* header = lst_cria();
+    lst_populateList(file, header);
+    ListaNo* ptr = lst_returnNodeValid(header);
+    if(ptr == NULL)
+    return;
+
+    char* info = lst_infoValid(ptr);
+    while (info != NULL)
+    {   
+        
+printInfo(concatenatePaths("getLogsContent 100", info));
+        getVersionContent(info, 1);
+        ptr = lst_nextNode(ptr);
+        info = lst_infoValid(ptr);
+    }
+    
+    free(info);
+    free(ptr);
+    lst_libera(header);
+    
 }
 
 
