@@ -3,7 +3,7 @@
 O presente projeto trata-se de um clone do Git, uma ferramenta amplamente utilizada para controle de versão de código. Nossa missão consiste em desenvolver um versionador funcional, totalmente implementado em linguagem C. O projeto foi idealizado e executado por um grupo composto por três dedicados alunos do curso de Ciência da Computação, no segundo semestre de sua formação acadêmica. Estamos empenhados em aprimorar nossas habilidades de programação e adquirir um profundo entendimento dos princípios fundamentais de controle de versão, enquanto aplicamos os conhecimentos adquiridos até o momento em nosso curso. Com determinação e trabalho em equipe, buscamos alcançar resultados de qualidade e contribuir para a evolução do cenário de desenvolvimento de software.
 
 
-## ESTRUTURA
+# ESTRUTURA
 A estrutura de pastas da `PRIMEIRA` versão é esta a seguir:
 ```
 versionador/
@@ -23,6 +23,44 @@ versionador/
 │   └── database.h        // Cabeçalho das funções do banco de dados
 └── README.md             // Documentação
 ```
+### PARA RODAR O CÓDIGO
+`tasks.json`
+```json
+{
+	"tasks": [
+		{
+		"type":  "cppbuild",
+		"label":  "C/C++: gcc-11 arquivo de build ativo",
+		"command":  "/usr/bin/gcc-11",
+		"args": [
+			"-fdiagnostics-color=always",
+			"-g",
+			"-I${workspaceFolder}/src/utils",
+			"-I${workspaceFolder}/src/database",
+			"-I${workspaceFolder}/src/commands",
+			"${workspaceFolder}/src/commands/*.c",
+			"${workspaceFolder}/src/database/*.c",
+			"${workspaceFolder}/src/utils/*.c",
+			"${fileDirname}/*.c",
+			"-o",
+			"${fileDirname}/${fileBasenameNoExtension}"
+		],
+		"options": {
+			"cwd":  "${fileDirname}"
+		},
+		"problemMatcher": [
+			"$gcc"
+		],
+		"group": {
+			"kind":  "build",
+			"isDefault":  true
+		},
+		"detail":  "Tarefa gerada pelo Depurador."
+		}
+	],
+	"version":  "2.0.0"
+}
+```
 
 ## INTEGRANTES
 
@@ -36,4 +74,5 @@ versionador/
 
 
 ### <img src="https://lh3.googleusercontent.com/fife/APg5EOZ55ce6RRYMC8hxYjDWcwfu1qvjq_FNX7OO0ETv1HD3Zy2WRNM2MSFsCXZ7YwCpQ11E6DzlIaYzxo1QPTDTCXQUA8IsyZLsnnlPOvwvmBCaqUn5wmB97E9LDX4MJbDlpKqyy9jZ7MxVdlJ-e99gb1CLWAHH2LpPIFhbaNCORu6-qgsZOI7BHl8SbQuS0u0bQqf9sUmsXW4H9IlVHjIZJYLUFGzqzmgzdK4p_WgERuktbcOlsyHwDbz44Zmn2zVSEVmmexcEVbQQkuK7z_AEAmAaG3_33OmIrzNKQ12FPewMbpjGZ4TGnpMHp6cKaZeJqQanKZr53eOTi5eMs0shDHQU6kxXfAPPw6Hf5GU6Y5npj7HLdc3sN9YG7B71aQWWrvbSr03i-7ueaEhzX0qaxl1yTlHSugmVIlm30Xr7LUywP0yX7i1lggKwb9H_b8olK5KEEE0WSv2RHlnkk7r19AdhCvlLfhvXKPSLmMtDv1cg74pGIobuxNDV8DusvkD2IgWc4i-aGXIkLr6TWcSql1v8hJZSFKqXPEq7tMRVRtDrQyTUrXRJtXMMXHSZCciq2RQT3HY1QdL9ve2KTwn4nbK4K5qEiOH4_W3uGAFGrYA7_gtHik2w1rXWrRKS0e8mJtiHZUOH2bYq3Wod30edApZuVZ63tI4yBsunZw57JpVUHV95XO4WVQzx3TPh8G-fCtu7vrVjonly4QDmmpOmA8JnxWpK_1mwRaSgwhZM9lqRvwVVzFFOnCWbKbgSPz_hXP3Jn_dJi7WuOfn16uIjvtRduBCbDn-l6b8idsTbGcP1Xh9VUJQgT0ImAeTrB-fhDISTQ4_rJPLZj8vArSjadPNAxfj5oSFg1GmOhRr-cjDz0Zf3za42X4q0CYAMlPSyKbo_XC-pP2wh9c56PTdfV-eUA5uk01kpxcqSFooW72bni2noP-c2_mzqeZND8nM7ARaWpGJhmt1_TD7_n49dKe2rRKqWdWXDXSI1FKw7H5xBJM5b55Kpb9w5eWw5sxu0wTrLpvQu5wRqjm-mEzMMJmpVGTLPjDQWYbqzoxkyu-TZZJmc7AyLu2mAVal7aeWBFmp18AD4KJZrOgjZSjRp6IL6GgAvPlBIpr_ePRpJzqJ-iqP5pItV2DE4RsgZwF4JJeJxz4fKq1inp9MU6aHINiFzh3biCfwu9ZoHcuOZw-WnHi3dOu_pJmnnM1SMQISzh-2nV3e9LmSHKCue719kvAz5ihhVM2JGwtU5YKLpCjVE6rXYfkjDMMGhEN6NyEw6Bobz6f6g14dj7Scr9GtyjbqEVMSHe4Ct7Tp8x0skCLucfs0XVpVTQ2Eeder9renuiHbkdcQuFs4Y85UxHvvuYcn8hMLIJgBZ_MoDnPo_demk569AtQIEUTPaOenCK3FxsipW3HeLQOpYVFiQP_sulvJk_MrMSbiAaCCvKMALO29MIhKrYrP8CZEW9a6dNbZNoI_0IM1i5SfhGm_QqMy1Rg0CmjWffJniFB2NZtjn3ecDwX3u3VAI1Of7jlJwfMkqf2ZN5g1djAgD0Yw6iaDzdTm-pVo_1E126QoBm-9oue38401YElM1iMRsx1kMN1CQD054pEDMBIwmcWE=w1365-h946" height="40"> RAFAEL
+
 
