@@ -65,7 +65,7 @@ int main(int argc, char *argv[]) {
             printf("Uso: versionador.exe mudar <identificador>\n");
             return 1;
         }else{for (int i = 2; i < argc; i++) {
-        if (strcmp(argv[i], "--conteudo") == 0) {
+        if (strcmp(argv[i], "--atual") == 0) {
             mudarAtual();
         }else{
             char *identificador = argv[2];

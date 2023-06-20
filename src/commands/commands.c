@@ -132,19 +132,20 @@ void changeVersion(const char* identifier) {
     searchDirectoryFiles(path, header);
     ListaNo* ptr = lst_returnNodeValid(header);
 
-
+    
     if(ptr == NULL){
     return;
     }else{
     
 
     char* fileOrigin = lst_infoValid(ptr);
-    
+    char copySec[100];
     while (fileOrigin != NULL)
     {   
-        char *fileDest = concatenatePaths(".versionador/backup/", fileOrigin);
+        strcpy(copySec, fileOrigin);
+        char *fileDest = concatenatePaths(".versionador/backup", copySec);
         writeTextFile(fileDest, "");
-        copyFile(fileOrigin, fileDest);
+        copyFile(copySec, fileDest);
         ptr = lst_nextNode(ptr);
         fileOrigin = lst_infoValid(ptr);
         free(fileDest);
@@ -195,7 +196,7 @@ void restoreCurrentVersion() {
     ListaNo* ptr = lst_returnNodeValid(header);
 
     
-
+    char copySec[100];
     if(ptr == NULL){
     return;
     }else{
@@ -205,9 +206,10 @@ void restoreCurrentVersion() {
     
     while (fileOrigin != NULL)
     {   
-        char *fileBackupOrigin = concatenatePaths(path, fileOrigin);
-        removeFile(fileOrigin);
-        copyFile(fileBackupOrigin, fileOrigin);
+        strcpy(copySec, fileOrigin);
+        char *fileBackupOrigin = concatenatePaths(path, copySec);
+        removeFile(copySec);
+        copyFile(fileBackupOrigin, copySec);
         ptr = lst_nextNode(ptr);
         fileOrigin = lst_infoValid(ptr);
         free(fileBackupOrigin);
