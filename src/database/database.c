@@ -27,10 +27,9 @@ void addFileToSnapshot(const char* filename) {
     char* snapshotPath = concatenatePaths(".versionador/snapshots", "next_snapshot.txt");
     size_t len1 = strlen("\n");
     size_t len2 = strlen(filename);
-    char* combined = (char*)malloc(len1 + len2 + 2);
-    strcpy(combined, filename);
-    strcat(combined, "");
-    strcat(combined, "\n");
+    char* combined = (char*)malloc(len1 + len2 + 1);
+    strcpy(combined, "\n");
+    strcat(combined, filename);
      
     FILE* snapshotFile = fopen(snapshotPath, "w");
     if (snapshotFile == NULL) {
@@ -62,9 +61,7 @@ void  setPathToSnapshotIdentifier(const char* identifier){
     printInfo("create version path");
     free(path);
 }
-void moveFileSnapshotToContent(const char* file, const char* identifier){
 
-}
 int getSnapshotInfo() {
     printf("Lista de snapshots:\n");
 
@@ -172,62 +169,12 @@ void getVersionContent(const char* id, int showContent) {
     
 }
 
-void changeVersion(const char* identifier) {
-    // Mudar para a versão com o identificador especificado
-    // Salvar um backup dos arquivos atuais em uma pasta temporária
-    // Restaurar os arquivos da versão com o identificador especificado
 
-    // Verificar se a versão com o identificador especificado existe
-    if (!versionExists(identifier)) {
-        printf("A versão %s não existe.\n", identifier);
-        return;
-    }
 
-    // Construir o caminho completo para a pasta de backup
-    char* backupPath = concatenatePaths(".versionador/backup", identifier);
 
-    // Verificar se a pasta de backup já existe
-    if (directoryExists(backupPath)) {
-        printf("Já existe um backup para a versão %s.\n", identifier);
-        free(backupPath);
-        return;
-    }
 
-    // Criar a pasta de backup
-    createDirectory(backupPath);
 
-    // Salvar um backup dos arquivos atuais
-    backupCurrentFiles(backupPath);
 
-    // Restaurar os arquivos da versão com o identificador especificado
-    restoreVersionFiles(identifier, backupPath);
-
-    printf("Mudança para a versão %s concluída com sucesso.\n", identifier);
-
-    free(backupPath);
-}
-
-void restoreCurrentVersion() {
-    // Obter o identificador da versão atual do arquivo versions.txt
-    char* currentVersionIdentifier = getCurrentVersionIdentifier();
-
-    // Verificar se a versão atual existe no banco de dados
-    if (!versionExists(currentVersionIdentifier)) {
-        printError("A versão atual não existe.");
-        return;
-    }
-
-    // Verificar se a pasta temporária de backup existe
-    if (!directoryExists(".versionador/backup")) {
-        printError("A pasta de backup não existe.");
-        return;
-    }
-
-    // Restaurar os arquivos da versão atual
-    restoreVersionFiles(currentVersionIdentifier, ".versionador/backup");
-
-    printInfo("Os arquivos foram restaurados para a versão atual.");
-}
 
 int versionExists(const char* identifier) {
     // Verificar se a versão com o identificador especificado existe
@@ -235,18 +182,6 @@ int versionExists(const char* identifier) {
     int exists = fileExists(snapshotPath);
     free(snapshotPath);
     return exists;
-}
-
-void backupCurrentFiles(const char* backupPath) {
-    // Salvar um backup dos arquivos atuais em uma pasta temporária
-
-    // Construir o caminho completo para a pasta de conteúdo
-    char* contentPath = concatenatePaths(".versionador/content", getCurrentVersionIdentifier());
-
-    // Copiar todos os arquivos da pasta de conteúdo para a pasta de backup
-    copyDirectory(contentPath, backupPath);
-
-    free(contentPath);
 }
 
 void restoreVersionFiles(const char* identifier, const char* backupPath) {
@@ -338,18 +273,25 @@ void copyDirectory(const char* sourceDir, const char* destDir) {
 }
 
 void copyFile(const char* sourceFile, const char* destFile) {
-    FILE* source = fopen(sourceFile, "rb");
-    FILE* dest = fopen(destFile, "wb");
+    char destino[100];
+    strcpy(destino, destFile);
+    FILE* dest = fopen(destino, "w");
+    FILE* source = fopen(sourceFile, "r");
+    
 
     if (source == NULL || dest == NULL) {
         printf("Failed to open source or destination file.\n");
         return;
     }
 
-    char buffer[4096];
+    fseek(source, 0, SEEK_END);
+    long fileLength = ftell(source);
+    fseek(source, 0, SEEK_SET);
+    char *buffer = (char*)malloc(fileLength);
+
     size_t bytesRead;
 
-    while ((bytesRead = fread(buffer, 1, sizeof(buffer), source)) > 0) {
+    if ((bytesRead = fread(buffer, 1, fileLength+1, source)) > 0) {
         fwrite(buffer, 1, bytesRead, dest);
     }
 

@@ -2,6 +2,7 @@
 #include "../utils/utils.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "../database/database.h"
 #include "../utils/lista.h"
 
@@ -97,8 +98,7 @@ void getLogsContent(char* file){
     char* info = lst_infoValid(ptr);
     while (info != NULL)
     {   
-        
-printInfo(concatenatePaths("getLogsContent 100", info));
+    //printInfo(concatenatePaths("getLogsContent 100", info));
         getVersionContent(info, 1);
         ptr = lst_nextNode(ptr);
         info = lst_infoValid(ptr);
@@ -110,4 +110,114 @@ printInfo(concatenatePaths("getLogsContent 100", info));
     
 }
 
+void changeVersion(const char* identifier) {
+    // Mudar para a versão com o identificador especificado
+    // Salvar um backup dos arquivos atuais em uma pasta temporária
+    // Restaurar os arquivos da versão com o identificador especificado
 
+    // Verificar se a versão com o identificador especificado existe
+    if (!versionExists(identifier)) {
+        printf("A versão %s não existe.\n", identifier);
+        return;
+    }
+
+    if (directoryExists(".versionador/backup")) {
+        removeDirectory(".versionador/backup");
+    }
+
+    createDirectory(".versionador/backup");    
+    char path[100];
+    strcpy(path,concatenatePaths(".versionador/content/", identifier));
+    Lista *header = lst_cria();
+    searchDirectoryFiles(path, header);
+    ListaNo* ptr = lst_returnNodeValid(header);
+
+
+    if(ptr == NULL){
+    return;
+    }else{
+    
+
+    char* fileOrigin = lst_infoValid(ptr);
+    
+    while (fileOrigin != NULL)
+    {   
+        char *fileDest = concatenatePaths(".versionador/backup/", fileOrigin);
+        writeTextFile(fileDest, "");
+        copyFile(fileOrigin, fileDest);
+        ptr = lst_nextNode(ptr);
+        fileOrigin = lst_infoValid(ptr);
+        free(fileDest);
+    }
+    free(fileOrigin);
+    
+    }
+
+    searchDirectoryFiles(path, header); 
+    ptr = lst_returnNodeValid(header);
+
+    if(ptr == NULL){
+    return;
+    }else{
+    
+
+    char* fileOrigin = lst_infoValid(ptr);
+    
+    while (fileOrigin != NULL)
+    {   
+        char *fileContentOrigin = concatenatePaths(path, fileOrigin);
+        removeFile(fileOrigin);
+        writeTextFile(fileOrigin, "");
+        copyFile(fileContentOrigin, fileOrigin);
+        ptr = lst_nextNode(ptr);
+        fileOrigin = lst_infoValid(ptr);
+        free(fileContentOrigin);
+    }
+    free(fileOrigin);
+    
+    }
+
+    lst_libera(header);
+}
+
+
+void restoreCurrentVersion() {
+
+    // Verificar se a pasta temporária de backup existe
+    if (!directoryExists(".versionador/backup")) {
+        printError("A pasta de backup não existe.");
+        return;
+    }
+
+    char path[] = ".versionador/backup";
+    Lista *header = lst_cria();
+    searchDirectoryFiles(path, header);
+    ListaNo* ptr = lst_returnNodeValid(header);
+
+    
+
+    if(ptr == NULL){
+    return;
+    }else{
+    
+
+    char* fileOrigin = lst_infoValid(ptr);
+    
+    while (fileOrigin != NULL)
+    {   
+        char *fileBackupOrigin = concatenatePaths(path, fileOrigin);
+        removeFile(fileOrigin);
+        copyFile(fileBackupOrigin, fileOrigin);
+        ptr = lst_nextNode(ptr);
+        fileOrigin = lst_infoValid(ptr);
+        free(fileBackupOrigin);
+    }
+    free(fileOrigin);
+    
+    }
+
+    removeDirectory(path);
+    printInfo("Os arquivos foram restaurados para a versão atual.");
+
+    lst_libera(header);
+}

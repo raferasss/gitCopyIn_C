@@ -10,5 +10,7 @@ void mudarVersao(const char* identificador);
 void reverterVersaoAtual();
 void  saveSnapshotFilesInContent(const char* identifier);
 void getLogsContent(char* file);
+void changeVersion(const char* identifier);
+void restoreCurrentVersion();
 
 #endif  // COMMANDS_H

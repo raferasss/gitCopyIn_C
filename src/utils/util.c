@@ -1,7 +1,11 @@
+#define _DEFAULT_SOURCE
 #include "utils.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <dirent.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <time.h>
 #include "../database/database.h"
 #include <sys/stat.h>
@@ -115,7 +119,11 @@ void writeTextFileNextLine(const char* name, const char* text){
 }
 
 void writeTextFile(const char* filename, const char* content) {
-    FILE* file = fopen(filename, "w");
+    
+    char fileName[100];
+    strcpy(fileName, filename);
+
+    FILE* file = fopen(fileName, "w");
     if (file == NULL) {
         printError("Failed to open file for writing.");
         return;
@@ -167,17 +175,45 @@ const char* getVersionIdentifier(int versionIndex) {
 }
 
 void removeFile(char* file) {
+
+    char filE[100];
+    int i = 0;
+    int j = 0;
+   
+   while (file[i] != '\0') {
+            filE[j] = file[i]; // Armazena o caractere na palavra
+            j++;
+            i++;
+    }
+    filE[j] = '\0';
     // Verificar se o arquivo existe
-    if (access(file, F_OK) != 0) {
-        printf("O arquivo %s não existe.\n", file);
+    if (access(filE, F_OK) != 0) {
+        printf("O arquivo %s não existe.\n", filE);
         return;
     }
 
     // Remover o arquivo
-    int result = remove(file);
-    if (result == 0) {
-        printf("O arquivo %s foi removido com sucesso.\n", file);
-    } else {
-        printf("Falha ao remover o arquivo %s.\n", file);
-    }
+    int result = remove(filE);
+
+}
+
+
+void searchDirectoryFiles(char* path, Lista* header){
+
+        // Abrir a pasta de conteúdo
+        DIR* contentDir = opendir(path);
+        if (contentDir == NULL) {
+            printError("Failed to open content directory.");
+            return;
+        }
+
+        // Ler os arquivos na pasta de conteúdo
+        struct dirent* entry;
+        while ((entry = readdir(contentDir)) != NULL) {
+            if (entry->d_type == DT_REG) {  
+                 lst_insere(header, entry->d_name);
+            }
+        }
+
+        closedir(contentDir);
 }

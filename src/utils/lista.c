@@ -1,7 +1,8 @@
 #include"lista.h"
 #include<stdlib.h>
-#include<stdio.h>
 #include "utils.h"
+#include <stdio.h>
+#include <string.h>
 #include "../database/database.h"
 
 struct lista_no {
@@ -38,21 +39,20 @@ void lst_populateList(char* path, Lista* header){
     int j = 0;
     
     while (content[i] != '\0') {
-        if (content[i] == '\n') {
+            palavra[j] = content[i]; // Armazena o caractere na palavra
+            j++;
+        i++;
+        if (content[i] == '\n' || content[i] == '\0') {
             palavra[j] = '\0'; // Adiciona o caractere nulo para indicar o fim da palavra
             printInfo(palavra);
             ListaNo *novo = (ListaNo*) malloc(sizeof(ListaNo));
-            
-            novo->info = palavra;
-            
+            size_t len1 = strlen(palavra);
+            novo->info = (char*)malloc(len1+1);
+            strcpy(novo->info, palavra+1);
             novo->proximo = header->primeiro;
             header->primeiro = novo; // Imprime a palavra completa
             j = 0; // Reseta o índice para a próxima palavra
-        } else {
-            palavra[j] = content[i]; // Armazena o caractere na palavra
-            j++;
-        }
-        i++;
+        } 
     }
     
 }

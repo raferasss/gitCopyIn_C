@@ -20,7 +20,12 @@ void mudarAtual();
 int main(int argc, char *argv[]) {
     // Verifica o número de argumentos
    
-    
+    //iniciar();
+    addFileToSnapshot("teste_autonomo.txt");
+    registra("meu 2 comit");
+    logComConteudo ();
+    //mudar("20230614002710");
+    //mudarAtual();
     if (argc < 2) {
         printf("Uso: versionador.exe <comando> [argumentos]\n");
         return 1;
@@ -65,12 +70,17 @@ int main(int argc, char *argv[]) {
         if (argc < 3) {
             printf("Uso: versionador.exe mudar <identificador>\n");
             return 1;
+        }else{for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i], "--conteudo") == 0) {
+            mudarAtual();
+        }else{
+            char *identificador = argv[2];
+            mudar(identificador);
         }
-        char *identificador = argv[2];
-        mudar(identificador);
-    } else if (strcmp(comando, "mudar --atual") == 0) {
-        mudarAtual();
-    } else {
+        }
+        }
+        
+     }else {
         printf("Comando inválido.\n");
         return 1;
     }

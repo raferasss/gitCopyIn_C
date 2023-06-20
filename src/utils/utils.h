@@ -13,4 +13,5 @@ char* generateUniqueIdentifier();
 int contLines(char* path);
 void removeFile(char* file);
 void writeTextFileNextLine(const char* name, const char* text);
+void searchDirectoryFiles(char* path, Lista* header);
 #endif  // UTILS_H

@@ -19,10 +19,10 @@ void addFileToSnapshot(const char* filename);
 void registerSnapshot(const char* identifier, const char* text);
 int getSnapshotInfo();
 void getVersionContent(const char* identifier, int showContent);
-void changeVersion(const char* identifier);
-void restoreCurrentVersion();
+
+
 int versionExists(const char* identifier);
-void backupCurrentFiles(const char* backupPath);
+
 void restoreVersionFiles(const char* identifier, const char* backupPath);
 int directoryExists(const char* path);
 char* getCurrentVersionIdentifier();
