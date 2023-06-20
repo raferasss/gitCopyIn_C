@@ -20,12 +20,6 @@ void mudarAtual();
 int main(int argc, char *argv[]) {
     // Verifica o número de argumentos
    
-    //iniciar();
-    addFileToSnapshot("teste_autonomo.txt");
-    registra("meu 2 comit");
-    logComConteudo ();
-    //mudar("20230614002710");
-    //mudarAtual();
     if (argc < 2) {
         printf("Uso: versionador.exe <comando> [argumentos]\n");
         return 1;
