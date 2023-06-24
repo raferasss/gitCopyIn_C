@@ -15,6 +15,9 @@
 Version versions[MAX_NUM_VERSIONS];
 int numVersions = 0;
 
+/**
+ * @brief Cria o banco de dados necessário para o versionador.
+ */
 void createDatabase() {
     createDirectory(".versionador");
     createDirectory(".versionador/content");
@@ -22,6 +25,10 @@ void createDatabase() {
     writeTextFile(".versionador/versions.txt", "");
 }
 
+/**
+ * @brief Adiciona um arquivo ao próximo snapshot.
+ * @param filename Nome do arquivo a ser adicionado.
+ */
 void addFileToSnapshot(const char* filename) {
      // Marcar o arquivo para ser adicionado ao próximo snapshot
     char* snapshotPath = concatenatePaths(".versionador/snapshots", "next_snapshot.txt");
@@ -47,6 +54,11 @@ void addFileToSnapshot(const char* filename) {
 
 }
 
+/**
+ * @brief Registra um snapshot no banco de dados.
+ * @param identifier Identificador do snapshot.
+ * @param commit Texto do commit associado ao snapshot.
+ */
 void registerSnapshot(const char* identifier, const char* commit) {
     // Criar um snapshot dos arquivos marcados e registrar no banco de dados
     char* snapshotPath = concatenatePaths(".versionador/snapshots", identifier);
@@ -54,6 +66,10 @@ void registerSnapshot(const char* identifier, const char* commit) {
    
     free(snapshotPath);
 }
+/**
+ * @brief Define o caminho para o identificador do próximo snapshot.
+ * @param identifier Identificador do próximo snapshot.
+ */
 void  setPathToSnapshotIdentifier(const char* identifier){
     char* path = concatenatePaths(".versionador/content", identifier);
     writeTextFileNextLine(".versionador/versions.txt", identifier);
@@ -62,6 +78,10 @@ void  setPathToSnapshotIdentifier(const char* identifier){
     free(path);
 }
 
+/**
+ * @brief Obtém informações sobre os snapshots registrados no banco de dados.
+ * @return Número total de snapshots.
+ */
 int getSnapshotInfo() {
     printf("Lista de snapshots:\n");
 
@@ -100,6 +120,11 @@ int getSnapshotInfo() {
     return numVersions;
 }
 
+/**
+ * @brief Obtém o conteúdo de uma determinada versão.
+ * @param id Identificador da versão.
+ * @param showContent Flag para indicar se o conteúdo dos arquivos deve ser exibido.
+ */
 void getVersionContent(const char* id, int showContent) {
     char identifier[100];
     int i = 0;
@@ -173,7 +198,11 @@ void getVersionContent(const char* id, int showContent) {
 
 
 
-
+/**
+ * @brief Verifica se uma determinada versão existe.
+ * @param identifier Identificador da versão.
+ * @return 1 se a versão existe, 0 caso contrário.
+ */
 
 
 int versionExists(const char* identifier) {
@@ -184,6 +213,11 @@ int versionExists(const char* identifier) {
     return exists;
 }
 
+/**
+ * @brief Restaura os arquivos de uma determinada versão.
+ * @param identifier Identificador da versão.
+ * @param backupPath Caminho para a pasta de backup dos arquivos da versão.
+ */
 void restoreVersionFiles(const char* identifier, const char* backupPath) {
     // Restaurar os arquivos da versão com o identificador especificado
 
@@ -202,7 +236,11 @@ void restoreVersionFiles(const char* identifier, const char* backupPath) {
     free(versionContentPath);
 }
 
-
+/**
+ * @brief Verifica se um diretório existe.
+ * @param path Caminho do diretório.
+ * @return 1 se o diretório existe, 0 caso contrário.
+ */
 int directoryExists(const char* path) {
     struct stat st;
     if (stat(path, &st) == 0 && S_ISDIR(st.st_mode)) {
@@ -210,7 +248,10 @@ int directoryExists(const char* path) {
     }
     return 0;  // Diretório não existe
 }
-
+/**
+ * @brief Obtém o identificador da versão atual.
+ * @return Identificador da versão atual.
+ */
 char* getCurrentVersionIdentifier() {
     char* versionsFile = ".versionador/versions.txt";
     char* currentVersionIdentifier = NULL;
@@ -234,7 +275,11 @@ char* getCurrentVersionIdentifier() {
 
     return currentVersionIdentifier;
 }
-
+/**
+ * @brief Copia um diretório e seu conteúdo para um destino específico.
+ * @param sourceDir Diretório de origem.
+ * @param destDir Diretório de destino.
+ */
 void copyDirectory(const char* sourceDir, const char* destDir) { 
 
     // Abrir o diretório de origem
@@ -272,6 +317,11 @@ void copyDirectory(const char* sourceDir, const char* destDir) {
     closedir(dir);
 }
 
+/**
+ * @brief Copia um arquivo de origem para um destino específico.
+ * @param sourceFile Arquivo de origem.
+ * @param destFile Arquivo de destino.
+ */
 void copyFile(const char* sourceFile, const char* destFile) {
     char destino[100];
     strcpy(destino, destFile);
@@ -298,7 +348,10 @@ void copyFile(const char* sourceFile, const char* destFile) {
     fclose(source);
     fclose(dest);
 }
-
+/**
+ * @brief Remove um diretório e todo o seu conteúdo.
+ * @param path Caminho do diretório a ser removido.
+ */
 void removeDirectory(const char* path) {
     // Abrir o diretório
     DIR* dir = opendir(path);
@@ -333,13 +386,21 @@ void removeDirectory(const char* path) {
     }
 
     closedir(dir);
-
+ 
     // Remover o diretório
     if (rmdir(path) != 0) {
         printf("Failed to remove directory: %s\n", path);
     }
 }
 
+/**
+ * @brief Renomeia um diretório.
+ * @param oldPath Caminho do diretório antigo.
+ * @param newPath Novo caminho para o diretório.
+ *
+ * Verifica se os caminhos são diferentes e, em seguida, utiliza a função `rename`
+ * para renomear o diretório.
+ */
 void renameDirectory(const char* oldPath, const char* newPath) {
     // Verificar se os caminhos são diferentes
     if (strcmp(oldPath, newPath) == 0) {
@@ -354,6 +415,15 @@ void renameDirectory(const char* oldPath, const char* newPath) {
     }
 }
 
+/**
+ * @brief Adiciona conteúdo a um arquivo específico.
+ * @param identifier Identificador do arquivo.
+ * @param text Texto a ser adicionado.
+ *
+ * Extrai o nome do arquivo do texto fornecido e, em seguida, cria o caminho completo para
+ * o arquivo dentro da pasta ".versionador/content". Em seguida, lê o conteúdo do arquivo
+ * fornecido e o escreve no arquivo correspondente no local especificado.
+ */
 void addContent( const char* identifier,const char* text){
     char filename[100];
     int i = 0;

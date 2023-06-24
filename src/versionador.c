@@ -83,9 +83,19 @@ int main(int argc, char *argv[]) {
 }
 
 // Implementação das funções
+/**
+ * @brief Inicia o versionador chamando a função iniciarVersionador().
+ */
 void iniciar() {
     iniciarVersionador();
 }
+
+/**
+ * @brief Adiciona arquivos ao versionador.
+ * 
+ * @param argc O número de argumentos.
+ * @param argv Os argumentos.
+ */
 
 void adiciona(int argc, char* argv[]) {
     for (int i = 2; i < argc; i++) {
@@ -98,11 +108,21 @@ void adiciona(int argc, char* argv[]) {
     }
 }
 
+/**
+ * @brief Registra um snapshot com o texto especificado.
+ * 
+ * @param texto O texto do snapshot.
+ */
+
 void registra(char* texto) {
     char* id = registrarSnapshot(texto);
     saveSnapshotFilesInContent(id);
     free(id);
 }
+
+/**
+ * @brief Exibe o log das versões.
+ */
 
 void exibirlog() {
     int numVersions = getSnapshotInfo();
@@ -114,6 +134,10 @@ void exibirlog() {
     }
 }
 
+/**
+ * @brief Exibe o log das versões com o conteúdo dos arquivos.
+ */
+
 void logComConteudo() {
     int numVersions = getSnapshotInfo();
     printInfo("Exibindo conteúdo dos arquivos nas versões:");
@@ -122,9 +146,21 @@ void logComConteudo() {
     
 }
 
+/**
+ * @brief Mostra o conteúdo de uma versão específica.
+ * 
+ * @param identificador O identificador da versão.
+ */
+
 void mostrar(char* identificador) {
     getVersionContent(identificador, 1);
 }
+
+/**
+ * @brief Muda para uma versão específica.
+ * 
+ * @param identificador O identificador da versão.
+ */
 
 void mudar(char* identificador) {
     if (versionExists(identificador)) {
@@ -133,6 +169,10 @@ void mudar(char* identificador) {
         printf("A versão %s não existe.", identificador);
     }
 }
+
+/**
+ * @brief Muda para a versão atual.
+ */
 
 void mudarAtual() {
     restoreCurrentVersion();
