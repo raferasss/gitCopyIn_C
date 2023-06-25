@@ -12,6 +12,12 @@
 #include <unistd.h>
 #include "lista.h"
 
+struct Raiz {
+    char nome[100];
+    char initVersion[100];
+    char initParent[100];
+};
+
 /**
  * @brief Imprime uma mensagem de erro.
  * @param message Mensagem de erro a ser exibida.
@@ -343,4 +349,58 @@ void searchDirectoryFiles(char* path, Lista* header){
         }
 
         closedir(contentDir);
+}
+
+void salvarStruct(const struct Raiz* raiz, const char* arquivo) {
+    FILE* file = fopen(arquivo, "a");
+
+    if (file != NULL) {
+        fprintf(file, "<INICIO>\n");
+        fprintf(file, "%s\n", raiz->nome);
+        fprintf(file, "%s\n", raiz->initVersion);
+        fprintf(file, "%s\n", raiz->initParent);
+        fprintf(file, "<FIM>\n");
+
+        fclose(file);
+        printf("Struct salva com sucesso.\n");
+    } else {
+        printf("Erro ao abrir o arquivo para salvar a struct.\n");
+    }
+}
+
+void lerStructs(const char* arquivo) {
+    FILE* file = fopen(arquivo, "r");
+
+    if (file != NULL) {
+        char linha[100];
+        struct Raiz raiz;
+
+        while (fgets(linha, sizeof(linha), file) != NULL) {
+            if (strcmp(linha, "<INICIO>\n") == 0) {
+                fgets(raiz.nome, sizeof(raiz.nome), file);
+                fgets(raiz.initVersion, sizeof(raiz.initVersion), file);
+                fgets(raiz.initParent, sizeof(raiz.initParent), file);
+
+                // Removendo o caractere de nova linha (\n) no final de cada string
+                raiz.nome[strcspn(raiz.nome, "\n")] = '\0';
+                raiz.initVersion[strcspn(raiz.initVersion, "\n")] = '\0';
+                raiz.initParent[strcspn(raiz.initParent, "\n")] = '\0';
+
+                printf("Nome: %s\n", raiz.nome);
+                printf("Versão Inicial: %s\n", raiz.initVersion);
+                printf("Pai Inicial: %s\n", raiz.initParent);
+            }
+        }
+
+        fclose(file);
+    } else {
+        printf("Erro ao abrir o arquivo para ler as structs.\n");
+    }
+}
+
+void fillNode(char* name, char* initVersion, char* initParent, char* file){
+    struct Raiz raiz;
+    strcpy(raiz.nome, name);
+    strcpy(raiz.initVersion, initVersion);
+    strcpy(raiz.initParent, initParent);
 }
