@@ -1,4 +1,5 @@
-#define TEST3_H
+#ifndef ARVORE_H
+#define ARVORE_H
 
 // STRUCTS
 typedef struct TreeNode TreeNode;
@@ -24,3 +25,8 @@ void searchVersion(TreeNode* node, const char* version);
 void printBranchByName(TreeNode* node, const char* name, const char* versionStop);
 void treeBranchRecursiv(char* branch, TreeNode* root, char* proxBranch, ListNode* listnodeRoot, char* versionStop);
 void treeBranch(char* branch, TreeNode* root);
+void removeBranchFromFile(const char* branchName);
+void renameBranchFromFile( const char* currentBranchName, const char* newBranchName);
+int branchExistsInTree(char* branch);
+
+#endif

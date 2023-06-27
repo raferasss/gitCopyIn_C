@@ -16,10 +16,13 @@ void logComConteudo();
 void mostrar(char *identificador);
 void mudar(char *identificador);
 void mudarAtual();
+void criarRamo(char* name);
+void removeRamo(char* name);
+void alteraRamo(char* nameAtual, char* novoNome);
 
 int main(int argc, char *argv[]) {
     // Verifica o número de argumentos
-   
+    // removeRamo("branch");
     if (argc < 2) {
         printf("Uso: versionador.exe <comando> [argumentos]\n");
         return 1;
@@ -34,6 +37,32 @@ int main(int argc, char *argv[]) {
         
     } else if (strcmp(comando, "adiciona") == 0) {
         adiciona(argc, argv);
+    }  else if (strcmp(comando, "ramo") == 0) {
+        
+        switch (argc)
+        {
+        case 3:
+            criarRamo(argv[2]);
+            break;
+        case 4:
+            if (strcmp(argv[2], "--remover") == 0) {
+                removeRamo(argv[3]);
+            }else{
+                printError("comando invalido sugestoes:\nversionador.exe ramo <nome_ramo>\nversionador.exe ramo –remover <nome_ramo>\nversionador.exe ramo --alterar <nome_ramo> <novo_nome>");
+            }
+            break;
+        case 5:
+            if(strcmp(argv[2], "--alterar") == 0){
+                alteraRamo(argv[3], argv[4]);
+            }else{
+                printError("comando invalido sugestoes:\nversionador.exe ramo <nome_ramo>\nversionador.exe ramo –remover <nome_ramo>\nversionador.exe ramo --alterar <nome_ramo> <novo_nome>");
+            }
+            break;
+        
+        default:
+            printError("comando invalido sugestoes:\nversionador.exe ramo <nome_ramo>\nversionador.exe ramo –remover <nome_ramo>\nversionador.exe ramo --alterar <nome_ramo> <novo_nome>");
+            break;
+        }
     } else if (strcmp(comando, "registra") == 0) {
         // Verifica se foi fornecido o texto do snapshot
         if (argc < 3) {
@@ -62,7 +91,7 @@ int main(int argc, char *argv[]) {
     } else if (strcmp(comando, "mudar") == 0) {
         // Verifica se foi fornecido o identificador da versão
         if (argc < 3) {
-            printf("Uso: versionador.exe mudar <identificador>\n");
+            printf("Uso: versionador.exe mudar <identificador>/<branch>\n");
             return 1;
         }else{for (int i = 2; i < argc; i++) {
         if (strcmp(argv[i], "--atual") == 0) {
@@ -143,7 +172,6 @@ void logComConteudo() {
     printInfo("Exibindo conteúdo dos arquivos nas versões:");
     getLogsContent(".versionador/versions.txt");
     
-    
 }
 
 /**
@@ -167,6 +195,35 @@ void mudar(char* identificador) {
         changeVersion(identificador);
     } else {
         printf("A versão %s não existe.", identificador);
+    }
+}
+
+void criarRamo(char* name){
+    printInfo(name);
+    if(!branchExists(name)){
+        createBranch(name);
+    } else {
+        printf("A Branch %s já existe.", name);
+    }
+}
+
+void removeRamo(char* name){
+    if(branchExists(name)){
+        removeBranch(name);
+    } else {
+        printf("A Branch %s não existe.", name);
+    }
+}
+
+void alteraRamo(char* nameAtual, char* novoNome){
+     if(branchExists(nameAtual)){
+        if(!branchExists(novoNome)){
+            renameBranch(nameAtual, novoNome);
+        } else {
+            printf("A Branch %s já existe.", novoNome);
+        }
+    } else {
+        printf("A Branch %s não existe.", nameAtual);
     }
 }
 

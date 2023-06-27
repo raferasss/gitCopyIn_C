@@ -7,7 +7,6 @@
 #include "../utils/lista.h"
 
 
-
 /**
  * @brief Inicia o versionador.
  *
@@ -18,6 +17,47 @@ void iniciarVersionador() {
     printInfo("Versionador iniciado com sucesso.");
 }
 
+void removeBranch(char* branchName){
+    removeBranchInDatabase(branchName);
+}
+
+void renameBranch(char* nameAtual,char* novoNome){
+    
+    renameBranchInDatabase(nameAtual, novoNome);
+}
+
+void createBranch(char* name){
+    printInfo("ENTREI");
+    FILE* file = fopen(".versionador/atual.txt", "r");
+
+    if (file != NULL) {
+        char linha[50];
+        char branchName[50];
+        char versionName[50];
+        while (fgets(linha, sizeof(linha), file) != NULL) {
+            if (strcmp(linha, "<INICIO>\n") == 0) {
+                fgets(branchName, 50, file);
+                fgets(versionName, 50, file);
+               
+
+                // Removendo o caractere de nova linha (\n) no final de cada string
+                branchName[strcspn(branchName, "\n")] = '\0';
+                versionName[strcspn(versionName, "\n")] = '\0';
+            }
+        }
+            if(strcmp(versionName, "Nenhum")==0){
+                printError("nenhuma versão foi encontrada na branch atual pra gerar uma nova branch.");
+                printf("branch atual: %s\nVersão atual da branch: %s",branchName, versionName);
+                return;
+            }
+        printInfo(name);
+        createBranchInDatabase(name, branchName, versionName);
+
+        fclose(file);
+    } else {
+        printf("Erro ao abrir o arquivo para ler as structs.\n");
+    }
+}
 /**
  * @brief Adiciona arquivos ao snapshot.
  * @param argc Número de argumentos.

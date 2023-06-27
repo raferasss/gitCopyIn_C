@@ -33,4 +33,10 @@ void renameDirectory(const char* oldPath, const char* newPath);
 void setPathToSnapshotIdentifier(const char* identifier);
 void addContent(const char* identifier,const char* text);
 
+
+void renameBranchInDatabase(char* branchName, char* newBranchName);
+void removeBranchInDatabase(char* branchName);
+void createBranchInDatabase(char* name, char *branchName, char *versionName);
+int branchExists(char* name);
+
 #endif /* DATABASE_H */

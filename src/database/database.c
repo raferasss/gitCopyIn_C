@@ -10,6 +10,7 @@
 #include <unistd.h> 
 #include <string.h>
 #include "../utils/lista.h"
+#include "../utils/arvore.h"
 
 
 Version versions[MAX_NUM_VERSIONS];
@@ -21,9 +22,134 @@ int numVersions = 0;
 void createDatabase() {
     createDirectory(".versionador");
     createDirectory(".versionador/content");
+    createDirectory(".versionador/content/principal");
+    writeTextFile(".versionador/content/dados.txt", "");
+    fillNode("principal", "Nenhum", "Nenhum", ".versionador/content/dados.txt");
+    writeTextFile(".versionador/atual.txt", "<INICIO>\nprincipal\nNenhum\n<FIM>");
     createDirectory(".versionador/snapshots");
-    writeTextFile(".versionador/versions.txt", "");
+    writeTextFile(".versionador/versionsprincipal.txt", "");
 }
+int branchExists(char* name){
+    printInfo("ola");
+   return branchExistsInTree(name);
+}
+
+void createBranchInDatabase(char* name, char *branchName, char *versionName){
+    char contentAtual[200];
+    char concatAtual[200];
+    char concatDirectory[200];
+
+    sprintf(concatDirectory, ".versionador/content/%s", name);
+    createDirectory(concatDirectory);
+
+    fillNode(name, versionName, branchName, ".versionador/content/dados.txt");
+
+    sprintf(contentAtual, "<INICIO>\n%s\nNenhum\n<FIM>", name);
+    writeTextFile(".versionador/atual.txt", contentAtual);
+
+    sprintf(concatAtual, ".versionador/versions%s.txt", name);
+    writeTextFile(concatAtual, "");
+}
+
+void renameBranchInDatabase(char* branchName, char* newBranchName) {
+    // Verificar se o ramo existe no banco de dados
+    if (!branchExists(branchName)) {
+        printf("Branch '%s' não existe.\n", branchName);
+        return;
+    }
+
+    // Verificar se o novo nome do ramo já existe no banco de dados
+    if (branchExists(newBranchName)) {
+        printf("O novo nome do ramo '%s' já existe no banco de dados.\n", newBranchName);
+        return;
+    }
+
+    // Renomear o ramo no arquivo da árvore de versões
+    renameBranchFromFile(branchName, newBranchName);
+
+    // Renomear o diretório do ramo
+    char branchPath[100];
+    sprintf(branchPath, ".versionador/content/%s", branchName);
+
+    char newBranchPath[100];
+    sprintf(newBranchPath, ".versionador/content/%s", newBranchName);
+
+    if (rename(branchPath, newBranchPath) != 0) {
+        printf("Erro ao renomear o diretório do ramo.\n");
+        return;
+    }
+
+    // Renomear o arquivo de versões do ramo
+    char versionsPath[100];
+    sprintf(versionsPath, ".versionador/versions%s.txt", branchName);
+
+    char newVersionsPath[100];
+    sprintf(newVersionsPath, ".versionador/versions%s.txt", newBranchName);
+
+    if (rename(versionsPath, newVersionsPath) != 0) {
+        printf("Erro ao renomear o arquivo de versões do ramo.\n");
+        return;
+    }
+
+    FILE* file = fopen(".versionador/atual.txt", "r");
+
+    if (file != NULL) {
+        char linha[50];
+        char branchName[50];
+        char versionName[50];
+        char concatContent[200];
+
+        while (fgets(linha, sizeof(linha), file) != NULL) {
+            if (strcmp(linha, "<INICIO>\n") == 0) {
+                fgets(branchName, 50, file);
+                fgets(versionName, 50, file);
+                // Removendo o caractere de nova linha (\n) no final de cada string
+                branchName[strcspn(branchName, "\n")] = '\0';
+                versionName[strcspn(versionName, "\n")] = '\0';
+            }
+        }
+
+        sprintf(concatContent, "<INICIO>\n%s\n%s\n<FIM>", newBranchName, versionName);
+        // printf(concatContent);
+        // remove(".versionador/atual.txt");
+        writeTextFile(".versionador/atual.txt", concatContent);
+
+        fclose(file);
+    } else {
+        printf("Erro ao abrir o arquivo para ler as structs.\n");
+    }
+
+    printf("Ramo '%s' renomeado para '%s' com sucesso.\n", branchName, newBranchName);
+}
+
+void removeBranchInDatabase(char* branchName) {
+    
+    //Verificar se o ramo existe no banco de dados
+    if (!branchExists(branchName)) {
+        printf("Branch '%s' não existe.\n", branchName);
+        return;
+    }
+
+    // Remover o ramo da árvore de versões
+    removeBranchFromFile(branchName);
+
+    // Remover o diretório do ramo
+    char branchPath[100];
+    sprintf(branchPath, ".versionador/content/%s", branchName);
+    removeDirectory(branchPath);
+ 
+    // Remover o arquivo de versões do ramo
+    char versionsPath[100];
+    sprintf(versionsPath, ".versionador/versions%s.txt", branchName);
+    if (remove(versionsPath) != 0) {
+        printf("Failed to remove versions file for branch '%s'.\n", branchName);
+    }
+
+    printf("Branch '%s' removida com sucesso.\n", branchName);
+}
+
+
+
 
 /**
  * @brief Adiciona um arquivo ao próximo snapshot.
@@ -71,11 +197,47 @@ void registerSnapshot(const char* identifier, const char* commit) {
  * @param identifier Identificador do próximo snapshot.
  */
 void  setPathToSnapshotIdentifier(const char* identifier){
-    char* path = concatenatePaths(".versionador/content", identifier);
-    writeTextFileNextLine(".versionador/versions.txt", identifier);
-    createDirectory(path);
-    printInfo("create version path");
-    free(path);
+     FILE* file = fopen(".versionador/atual.txt", "r");
+
+    if (file != NULL) {
+        char linha[50];
+        char branchName[50];
+        char versionName[50];
+        char concatBranchPath[100];
+        char concatBranchFile[100];
+        char concatContent[200];
+
+        while (fgets(linha, sizeof(linha), file) != NULL) {
+            if (strcmp(linha, "<INICIO>\n") == 0) {
+                fgets(branchName, 50, file);
+                fgets(versionName, 50, file);
+               
+
+                // Removendo o caractere de nova linha (\n) no final de cada string
+                branchName[strcspn(branchName, "\n")] = '\0';
+                versionName[strcspn(versionName, "\n")] = '\0';
+            }
+        }
+         
+        sprintf(concatBranchPath, ".versionador/content/%s", branchName);
+        char* path = concatenatePaths(concatBranchPath, identifier);
+
+        sprintf(concatBranchFile, ".versionador/versions%s.txt", branchName);
+        writeTextFileNextLine(concatBranchFile, identifier);
+
+        createDirectory(path);
+        printInfo("create version path");
+        free(path);
+
+        sprintf(concatContent, "<INICIO>\n%s\n%s\n<FIM>", branchName, identifier);
+        // printf(concatContent);
+        // remove(".versionador/atual.txt");
+        writeTextFile(".versionador/atual.txt", concatContent);
+
+        fclose(file);
+    } else {
+        printf("Erro ao abrir o arquivo para ler as structs.\n");
+    }
 }
 
 /**
@@ -435,8 +597,35 @@ void addContent( const char* identifier,const char* text){
             i++;
     }
     filename[j] = '\0';
-    char* file = concatenatePaths(".versionador/content", concatenatePaths(identifier, filename));
-    printInfo(filename);
-    writeTextFile(file, readTextFile(filename));
-    free(file);
+    FILE* file = fopen(".versionador/atual.txt", "r");
+
+    if (file != NULL) {
+        char linha[50];
+        char branchName[50];
+        char versionName[50];
+        char concatBranchPath[100];
+
+        while (fgets(linha, sizeof(linha), file) != NULL) {
+            if (strcmp(linha, "<INICIO>\n") == 0) {
+                fgets(branchName, 50, file);
+                fgets(versionName, 50, file);
+               
+
+                // Removendo o caractere de nova linha (\n) no final de cada string
+                branchName[strcspn(branchName, "\n")] = '\0';
+                versionName[strcspn(versionName, "\n")] = '\0';
+            }
+        }
+         
+        
+        sprintf(concatBranchPath, ".versionador/content/%s", branchName);
+        char* fileConcat = concatenatePaths(concatBranchPath, concatenatePaths(identifier, filename));
+        printInfo(filename);
+        writeTextFile(fileConcat, readTextFile(filename));
+        free(fileConcat);
+        fclose(file);
+
+    } else {
+        printf("Erro ao abrir o arquivo para ler as structs.\n");
+    }
 }

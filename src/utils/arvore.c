@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "utils.h"
 
 // Definição da estrutura do nó da árvore
 typedef struct TreeNode {
@@ -183,7 +184,7 @@ void freeList(ListNode* listHead) {
 
 void addVersionsToListAndConcatenate(ListNode** head, const char* name) {
     char filename[200];
-    sprintf(filename, "versoes%s.txt", name);
+    sprintf(filename, "versions%s.txt", name);
     addVersionsToList(filename, head, name);
 }
 
@@ -222,6 +223,7 @@ void searchVersion(TreeNode* node, const char* version) {
     // Recursivamente buscar na subárvore do próximo irmão
     searchVersion(node->nextSibling, version);
 }
+
 
 void printBranchByName(TreeNode* node, const char* name, const char* versionStop) {
 
@@ -287,5 +289,163 @@ void treeBranch(char* branch, TreeNode* root){
     free(proxBranch);
     free(versionStop);
         
+}
+
+int branchExistsInTree(char* branch){
+    ListNode* listnodeRoot =NULL;
+    TreeNode* nodeRoot = NULL;
+    readMetadataFile(".versionador/content/dados.txt",&listnodeRoot, &nodeRoot);
+    while (listnodeRoot != NULL)
+    {
+        if(strcmp(listnodeRoot->node->name, branch)==0){
+            freeList(listnodeRoot);
+            freeTree(nodeRoot);
+            return 1;
+        }
+        listnodeRoot = listnodeRoot->next;
+        
+    }
+
+    freeList(listnodeRoot);
+    freeTree(nodeRoot);
+    return 0;
+    
+}
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void renameBranchFromFile( const char* currentBranchName, const char* newBranchName) {
+    
+    // Abrir o arquivo em modo de leitura
+    char* fileName = ".versionador/content/dados.txt";
+    FILE* file = fopen(fileName, "r");
+    if (file == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
+
+    // Criar um arquivo temporário para escrever as informações atualizadas
+    FILE* tempFile = fopen(".versionador/content/temp.txt", "w");
+    if (tempFile == NULL) {
+        printf("Erro ao criar o arquivo temporário.\n");
+        fclose(file);
+        return;
+    }
+
+    char line[200];
+
+    // Ler o arquivo linha por linha
+    while (fgets(line, sizeof(line), file) != NULL) {
+        // Verificar se a linha contém "<INICIO>"
+        if (strcmp(line, "<INICIO>\n") == 0) {
+            // Ler as informações da ramificação
+            fgets(line, sizeof(line), file);  // Ler o nome da branch
+            line[strcspn(line, "\n")] = '\0';  // Remover a quebra de linha
+            
+            if (strcmp(line, currentBranchName) == 0) {
+                // Encontrou a ramificação a ser renomeada
+                // Escreve o novo nome no arquivo temporário
+                fprintf(tempFile, "<INICIO>\n%s\n", newBranchName);
+                continue;  // Pula para a próxima linha
+            }
+        }
+
+        // Escrever a linha atual no arquivo temporário
+        fputs(line, tempFile);
+    }
+
+    // Fechar os arquivos
+    fclose(file);
+    fclose(tempFile);
+
+    // Remover o arquivo original
+    if (remove(fileName) != 0) {
+        printf("Erro ao remover o arquivo original.\n");
+        return;
+    }
+
+    // Renomear o arquivo temporário para o nome original
+    if (rename(".versionador/content/temp.txt", fileName) != 0) {
+        printf("Erro ao renomear o arquivo temporário.\n");
+        return;
+    }
+
+    printf("Renomeação da ramificação concluída com sucesso.\n");
+}
+
+void removeBranchFromFile(const char* branchName) {
+    char* fileName = ".versionador/content/dados.txt";
+    FILE* file = fopen(fileName, "r");
+    if (file == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
+
+    // Criar um arquivo temporário para escrever as informações atualizadas
+    writeTextFile(".versionador/content/temp.txt", "");
+
+    FILE* tempFile = fopen(".versionador/content/temp.txt", "a");
+    if (tempFile == NULL) {
+        printf("Erro ao criar o arquivo temporário.\n");
+        fclose(file);
+        return;
+    }
+
+    char line[200];
+    char line1[200];
+    char line2[200];
+    Boolean escreve = TRUE;
+    // Ler o arquivo linha por linha
+    while (fgets(line, sizeof(line), file) != NULL) {
+        // Verificar se a linha contém "<INICIO>"
+        if (strcmp(line, "<INICIO>\n") == 0) {
+            // Ler as informações da ramificação
+            fgets(line, sizeof(line), file);
+            fgets(line1, sizeof(line1), file);  // Ler o nome da branch
+            fgets(line2, sizeof(line2), file);
+            line[strcspn(line, "\n")] = '\0';
+            line1[strcspn(line1, "\n")] = '\0';
+            line2[strcspn(line2, "\n")] = '\0';  // Remover a quebra de linha
+            
+            if(strcmp(line, branchName) == 0){
+                char concat[600];
+                sprintf(concat, "<INICIO>\n%s\n%s\n<FIM>", line2, line1);
+                writeTextFile(".versionador/atual.txt", concat);
+            }else{
+                fputs("<INICIO>\n", tempFile);
+                fputs(line, tempFile);
+                fputs("\n", tempFile);
+                fputs(line1, tempFile);
+                fputs("\n", tempFile);
+                fputs(line2, tempFile);
+                fputs("\n", tempFile);
+                fputs("<FIM>\n", tempFile);
+            }
+        }
+
+    }
+
+    // Fechar os arquivos
+    fclose(file);
+    fclose(tempFile);
+
+    // Remover o arquivo original
+    if (remove(fileName) != 0) {
+        printf("Erro ao remover o arquivo original.\n");
+        return;
+    }
+
+    // Renomear o arquivo temporário para o nome original
+    if (rename(".versionador/content/temp.txt", fileName) != 0) {
+        printf("Erro ao renomear o arquivo temporário.\n");
+        return;
+    }
+
+
+    
+    printf("Remoção da ramificação concluída com sucesso.\n");
 }
 

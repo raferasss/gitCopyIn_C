@@ -403,4 +403,5 @@ void fillNode(char* name, char* initVersion, char* initParent, char* file){
     strcpy(raiz.nome, name);
     strcpy(raiz.initVersion, initVersion);
     strcpy(raiz.initParent, initParent);
-}
+    salvarStruct(&raiz, file);
+    }
