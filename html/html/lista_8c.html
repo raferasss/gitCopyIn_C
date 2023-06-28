@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Versionador<span id="projectnumber">&#160;1.0</span>
+   <div id="projectname">Versionador<span id="projectnumber">&#160;2.0.0</span>
    </div>
    <div id="projectbrief">Estudo de Caso ED</div>
   </td>
@@ -186,17 +186,17 @@ Funções</h2></td></tr>
   </dd>
 </dl>
 <p>Percorre a lista a partir do primeiro nó e imprime a informação de cada nó. A função assume que a informação dos nós é do tipo string. Imprime cada informação seguida de uma quebra de linha. </p>
-<div class="fragment"><div class="line"><span class="lineno">  103</span>{</div>
-<div class="line"><span class="lineno">  104</span>    <a class="code hl_struct" href="structlista__no.html">ListaNo</a> *ptr = header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a>;</div>
-<div class="line"><span class="lineno">  105</span>    <span class="keywordflow">while</span>(ptr != NULL)</div>
-<div class="line"><span class="lineno">  106</span>    {</div>
-<div class="line"><span class="lineno">  107</span>        printf(<span class="stringliteral">&quot;%s\n&quot;</span>, ptr-&gt;<a class="code hl_variable" href="structlista__no.html#a34180076b08f65e91d4912823da88880">info</a>);</div>
-<div class="line"><span class="lineno">  108</span>        ptr = ptr-&gt;<a class="code hl_variable" href="structlista__no.html#a4f0ddc2055fb42944a3089346e35117c">proximo</a>;</div>
-<div class="line"><span class="lineno">  109</span>    }</div>
-<div class="line"><span class="lineno">  110</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  102</span>{</div>
+<div class="line"><span class="lineno">  103</span>    <a class="code hl_struct" href="structlista__no.html">ListaNo</a> *ptr = header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a>;</div>
+<div class="line"><span class="lineno">  104</span>    <span class="keywordflow">while</span>(ptr != NULL)</div>
+<div class="line"><span class="lineno">  105</span>    {</div>
+<div class="line"><span class="lineno">  106</span>        printf(<span class="stringliteral">&quot;%s\n&quot;</span>, ptr-&gt;<a class="code hl_variable" href="structlista__no.html#a7a36422bc1461f8799760b08badfcfb7">info</a>);</div>
+<div class="line"><span class="lineno">  107</span>        ptr = ptr-&gt;<a class="code hl_variable" href="structlista__no.html#a4f0ddc2055fb42944a3089346e35117c">proximo</a>;</div>
+<div class="line"><span class="lineno">  108</span>    }</div>
+<div class="line"><span class="lineno">  109</span>}</div>
 <div class="ttc" id="astructlista__no_html"><div class="ttname"><a href="structlista__no.html">lista_no</a></div><div class="ttdoc">Estrutura de nó da lista.</div><div class="ttdef"><b>Definição</b> lista.c:10</div></div>
-<div class="ttc" id="astructlista__no_html_a34180076b08f65e91d4912823da88880"><div class="ttname"><a href="structlista__no.html#a34180076b08f65e91d4912823da88880">lista_no::info</a></div><div class="ttdeci">char * info</div><div class="ttdef"><b>Definição</b> lista.c:11</div></div>
 <div class="ttc" id="astructlista__no_html_a4f0ddc2055fb42944a3089346e35117c"><div class="ttname"><a href="structlista__no.html#a4f0ddc2055fb42944a3089346e35117c">lista_no::proximo</a></div><div class="ttdeci">ListaNo * proximo</div><div class="ttdef"><b>Definição</b> lista.c:12</div></div>
+<div class="ttc" id="astructlista__no_html_a7a36422bc1461f8799760b08badfcfb7"><div class="ttname"><a href="structlista__no.html#a7a36422bc1461f8799760b08badfcfb7">lista_no::info</a></div><div class="ttdeci">char info[200]</div><div class="ttdef"><b>Definição</b> lista.c:11</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -225,13 +225,13 @@ Funções</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Retorna</dt><dd>Retorna a informação do nó.</dd></dl>
 <p>Verifica se o ponteiro para o nó é nulo. Se não for nulo, retorna a informação do nó. Caso contrário, retorna NULL. </p>
-<div class="fragment"><div class="line"><span class="lineno">  253</span>{</div>
-<div class="line"><span class="lineno">  254</span>        <span class="keywordflow">if</span>(ptr != NULL)</div>
-<div class="line"><span class="lineno">  255</span>        <span class="keywordflow">return</span> ptr-&gt;<a class="code hl_variable" href="structlista__no.html#a34180076b08f65e91d4912823da88880">info</a>;</div>
-<div class="line"><span class="lineno">  256</span>        </div>
-<div class="line"><span class="lineno">  257</span>        <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><span class="lineno">  258</span>         </div>
-<div class="line"><span class="lineno">  259</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  252</span>{</div>
+<div class="line"><span class="lineno">  253</span>        <span class="keywordflow">if</span>(ptr != NULL)</div>
+<div class="line"><span class="lineno">  254</span>        <span class="keywordflow">return</span> ptr-&gt;<a class="code hl_variable" href="structlista__no.html#a7a36422bc1461f8799760b08badfcfb7">info</a>;</div>
+<div class="line"><span class="lineno">  255</span>        </div>
+<div class="line"><span class="lineno">  256</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  257</span>         </div>
+<div class="line"><span class="lineno">  258</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -272,7 +272,7 @@ Funções</h2></td></tr>
 <p>Cria um novo nó e atribui a informação fornecida. O novo nó é inserido no início da lista. O próximo ponteiro do novo nó aponta para o nó que era o primeiro na lista. O ponteiro do primeiro nó da lista é atualizado para o novo nó. </p>
 <div class="fragment"><div class="line"><span class="lineno">   48</span>{</div>
 <div class="line"><span class="lineno">   49</span>    <a class="code hl_struct" href="structlista__no.html">ListaNo</a> *novo = (<a class="code hl_struct" href="structlista__no.html">ListaNo</a>*) malloc(<span class="keyword">sizeof</span>(<a class="code hl_struct" href="structlista__no.html">ListaNo</a>));</div>
-<div class="line"><span class="lineno">   50</span>    novo-&gt;<a class="code hl_variable" href="structlista__no.html#a34180076b08f65e91d4912823da88880">info</a> = text;</div>
+<div class="line"><span class="lineno">   50</span>    strcpy(novo-&gt;<a class="code hl_variable" href="structlista__no.html#a7a36422bc1461f8799760b08badfcfb7">info</a>, text);</div>
 <div class="line"><span class="lineno">   51</span>    novo-&gt;<a class="code hl_variable" href="structlista__no.html#a4f0ddc2055fb42944a3089346e35117c">proximo</a> = header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a>;</div>
 <div class="line"><span class="lineno">   52</span>    header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a> = novo;</div>
 <div class="line"><span class="lineno">   53</span>}</div>
@@ -303,17 +303,17 @@ Funções</h2></td></tr>
   </dd>
 </dl>
 <p>Percorre a lista a partir do primeiro nó e libera a memória ocupada por cada nó. Libera a memória alocada para a estrutura da lista. </p>
-<div class="fragment"><div class="line"><span class="lineno">  192</span>{</div>
-<div class="line"><span class="lineno">  193</span>    <a class="code hl_struct" href="structlista__no.html">ListaNo</a> *p = header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a>;</div>
-<div class="line"><span class="lineno">  194</span>    <span class="keywordflow">while</span> (p != NULL)</div>
-<div class="line"><span class="lineno">  195</span>    {</div>
-<div class="line"><span class="lineno">  196</span>        <a class="code hl_struct" href="structlista__no.html">ListaNo</a> *t  = p-&gt;<a class="code hl_variable" href="structlista__no.html#a4f0ddc2055fb42944a3089346e35117c">proximo</a>;</div>
-<div class="line"><span class="lineno">  197</span>        free(p);</div>
-<div class="line"><span class="lineno">  198</span>        p = t;</div>
-<div class="line"><span class="lineno">  199</span>    }</div>
-<div class="line"><span class="lineno">  200</span> </div>
-<div class="line"><span class="lineno">  201</span>    free(header);</div>
-<div class="line"><span class="lineno">  202</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  191</span>{</div>
+<div class="line"><span class="lineno">  192</span>    <a class="code hl_struct" href="structlista__no.html">ListaNo</a> *p = header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a>;</div>
+<div class="line"><span class="lineno">  193</span>    <span class="keywordflow">while</span> (p != NULL)</div>
+<div class="line"><span class="lineno">  194</span>    {</div>
+<div class="line"><span class="lineno">  195</span>        <a class="code hl_struct" href="structlista__no.html">ListaNo</a> *t  = p-&gt;<a class="code hl_variable" href="structlista__no.html#a4f0ddc2055fb42944a3089346e35117c">proximo</a>;</div>
+<div class="line"><span class="lineno">  196</span>        free(p);</div>
+<div class="line"><span class="lineno">  197</span>        p = t;</div>
+<div class="line"><span class="lineno">  198</span>    }</div>
+<div class="line"><span class="lineno">  199</span> </div>
+<div class="line"><span class="lineno">  200</span>    free(header);</div>
+<div class="line"><span class="lineno">  201</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -342,15 +342,15 @@ Funções</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Retorna</dt><dd>Retorna um ponteiro para o próximo nó válido da lista.</dd></dl>
 <p>Verifica se o ponteiro para o nó atual é nulo. Se não for nulo, retorna o ponteiro para o próximo nó. Caso contrário, imprime uma mensagem de erro e retorna NULL. </p>
-<div class="fragment"><div class="line"><span class="lineno">  233</span>                                   {</div>
-<div class="line"><span class="lineno">  234</span>    <span class="keywordflow">if</span>(ptr != NULL)</div>
-<div class="line"><span class="lineno">  235</span>    <span class="keywordflow">return</span> ptr-&gt;<a class="code hl_variable" href="structlista__no.html#a4f0ddc2055fb42944a3089346e35117c">proximo</a>;</div>
-<div class="line"><span class="lineno">  236</span> </div>
-<div class="line"><span class="lineno">  237</span>    <a class="code hl_function" href="util_8c.html#abb09396ee13a44215695d146ba593be5">printError</a>(<span class="stringliteral">&quot;no invalido&quot;</span>);</div>
-<div class="line"><span class="lineno">  238</span> </div>
-<div class="line"><span class="lineno">  239</span>    <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><span class="lineno">  240</span>}</div>
-<div class="ttc" id="autil_8c_html_abb09396ee13a44215695d146ba593be5"><div class="ttname"><a href="util_8c.html#abb09396ee13a44215695d146ba593be5">printError</a></div><div class="ttdeci">void printError(const char *message)</div><div class="ttdoc">Imprime uma mensagem de erro.</div><div class="ttdef"><b>Definição</b> util.c:21</div></div>
+<div class="fragment"><div class="line"><span class="lineno">  232</span>                                   {</div>
+<div class="line"><span class="lineno">  233</span>    <span class="keywordflow">if</span>(ptr != NULL)</div>
+<div class="line"><span class="lineno">  234</span>    <span class="keywordflow">return</span> ptr-&gt;<a class="code hl_variable" href="structlista__no.html#a4f0ddc2055fb42944a3089346e35117c">proximo</a>;</div>
+<div class="line"><span class="lineno">  235</span> </div>
+<div class="line"><span class="lineno">  236</span>    <a class="code hl_function" href="util_8c.html#abb09396ee13a44215695d146ba593be5">printError</a>(<span class="stringliteral">&quot;no invalido&quot;</span>);</div>
+<div class="line"><span class="lineno">  237</span> </div>
+<div class="line"><span class="lineno">  238</span>    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  239</span>}</div>
+<div class="ttc" id="autil_8c_html_abb09396ee13a44215695d146ba593be5"><div class="ttname"><a href="util_8c.html#abb09396ee13a44215695d146ba593be5">printError</a></div><div class="ttdeci">void printError(const char *message)</div><div class="ttdoc">Imprime uma mensagem de erro.</div><div class="ttdef"><b>Definição</b> util.c:27</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -406,17 +406,16 @@ Funções</h2></td></tr>
 <div class="line"><span class="lineno">   80</span>            <a class="code hl_function" href="util_8c.html#a2ecc69cced4dcf1393217677224d08b7">printInfo</a>(palavra);</div>
 <div class="line"><span class="lineno">   81</span>            <a class="code hl_struct" href="structlista__no.html">ListaNo</a> *novo = (<a class="code hl_struct" href="structlista__no.html">ListaNo</a>*) malloc(<span class="keyword">sizeof</span>(<a class="code hl_struct" href="structlista__no.html">ListaNo</a>));</div>
 <div class="line"><span class="lineno">   82</span>            <span class="keywordtype">size_t</span> len1 = strlen(palavra);</div>
-<div class="line"><span class="lineno">   83</span>            novo-&gt;<a class="code hl_variable" href="structlista__no.html#a34180076b08f65e91d4912823da88880">info</a> = (<span class="keywordtype">char</span>*)malloc(len1+1);</div>
-<div class="line"><span class="lineno">   84</span>            strcpy(novo-&gt;<a class="code hl_variable" href="structlista__no.html#a34180076b08f65e91d4912823da88880">info</a>, palavra+1);</div>
-<div class="line"><span class="lineno">   85</span>            novo-&gt;<a class="code hl_variable" href="structlista__no.html#a4f0ddc2055fb42944a3089346e35117c">proximo</a> = header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a>;</div>
-<div class="line"><span class="lineno">   86</span>            header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a> = novo; <span class="comment">// Imprime a palavra completa</span></div>
-<div class="line"><span class="lineno">   87</span>            j = 0; <span class="comment">// Reseta o índice para a próxima palavra</span></div>
-<div class="line"><span class="lineno">   88</span>        } </div>
-<div class="line"><span class="lineno">   89</span>    }</div>
-<div class="line"><span class="lineno">   90</span>    </div>
-<div class="line"><span class="lineno">   91</span>}</div>
-<div class="ttc" id="autil_8c_html_a2ecc69cced4dcf1393217677224d08b7"><div class="ttname"><a href="util_8c.html#a2ecc69cced4dcf1393217677224d08b7">printInfo</a></div><div class="ttdeci">void printInfo(const char *message)</div><div class="ttdoc">Imprime uma mensagem de informação.</div><div class="ttdef"><b>Definição</b> util.c:31</div></div>
-<div class="ttc" id="autil_8c_html_ad69118b8ad0f71842378f1997e1a6a5c"><div class="ttname"><a href="util_8c.html#ad69118b8ad0f71842378f1997e1a6a5c">readTextFile</a></div><div class="ttdeci">char * readTextFile(const char *name)</div><div class="ttdoc">Lê o conteúdo de um arquivo de texto.</div><div class="ttdef"><b>Definição</b> util.c:118</div></div>
+<div class="line"><span class="lineno">   83</span>            strcpy(novo-&gt;<a class="code hl_variable" href="structlista__no.html#a7a36422bc1461f8799760b08badfcfb7">info</a>, palavra+1);</div>
+<div class="line"><span class="lineno">   84</span>            novo-&gt;<a class="code hl_variable" href="structlista__no.html#a4f0ddc2055fb42944a3089346e35117c">proximo</a> = header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a>;</div>
+<div class="line"><span class="lineno">   85</span>            header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a> = novo; <span class="comment">// Imprime a palavra completa</span></div>
+<div class="line"><span class="lineno">   86</span>            j = 0; <span class="comment">// Reseta o índice para a próxima palavra</span></div>
+<div class="line"><span class="lineno">   87</span>        } </div>
+<div class="line"><span class="lineno">   88</span>    }</div>
+<div class="line"><span class="lineno">   89</span>    </div>
+<div class="line"><span class="lineno">   90</span>}</div>
+<div class="ttc" id="autil_8c_html_a2ecc69cced4dcf1393217677224d08b7"><div class="ttname"><a href="util_8c.html#a2ecc69cced4dcf1393217677224d08b7">printInfo</a></div><div class="ttdeci">void printInfo(const char *message)</div><div class="ttdoc">Imprime uma mensagem de informação.</div><div class="ttdef"><b>Definição</b> util.c:37</div></div>
+<div class="ttc" id="autil_8c_html_ad69118b8ad0f71842378f1997e1a6a5c"><div class="ttname"><a href="util_8c.html#ad69118b8ad0f71842378f1997e1a6a5c">readTextFile</a></div><div class="ttdeci">char * readTextFile(const char *name)</div><div class="ttdoc">Lê o conteúdo de um arquivo de texto.</div><div class="ttdef"><b>Definição</b> util.c:124</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -455,25 +454,25 @@ Funções</h2></td></tr>
   </dd>
 </dl>
 <p>Percorre a lista a partir do primeiro nó e procura o nó com a informação igual ao elemento fornecido. Se o nó for encontrado, remove-o da lista. Atualiza os ponteiros para manter a integridade da lista. Libera a memória alocada para o nó removido. </p>
-<div class="fragment"><div class="line"><span class="lineno">  148</span>{</div>
-<div class="line"><span class="lineno">  149</span>    <a class="code hl_struct" href="structlista__no.html">ListaNo</a> *ant = NULL;</div>
-<div class="line"><span class="lineno">  150</span>    <a class="code hl_struct" href="structlista__no.html">ListaNo</a> *p = header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a>;</div>
-<div class="line"><span class="lineno">  151</span> </div>
-<div class="line"><span class="lineno">  152</span>    <span class="keywordflow">while</span> (p != NULL &amp;&amp; p-&gt;<a class="code hl_variable" href="structlista__no.html#a34180076b08f65e91d4912823da88880">info</a> != text)</div>
-<div class="line"><span class="lineno">  153</span>    {</div>
-<div class="line"><span class="lineno">  154</span>        ant = p;</div>
-<div class="line"><span class="lineno">  155</span>        p = p-&gt;<a class="code hl_variable" href="structlista__no.html#a4f0ddc2055fb42944a3089346e35117c">proximo</a>;</div>
-<div class="line"><span class="lineno">  156</span>    }</div>
-<div class="line"><span class="lineno">  157</span> </div>
-<div class="line"><span class="lineno">  158</span>    <span class="keywordflow">if</span> (p != NULL) {</div>
-<div class="line"><span class="lineno">  159</span>        <span class="keywordflow">if</span> (ant == NULL)</div>
-<div class="line"><span class="lineno">  160</span>            header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a> = p-&gt;<a class="code hl_variable" href="structlista__no.html#a4f0ddc2055fb42944a3089346e35117c">proximo</a>;</div>
-<div class="line"><span class="lineno">  161</span>        <span class="keywordflow">else</span> </div>
-<div class="line"><span class="lineno">  162</span>            ant-&gt;<a class="code hl_variable" href="structlista__no.html#a4f0ddc2055fb42944a3089346e35117c">proximo</a> = p-&gt;<a class="code hl_variable" href="structlista__no.html#a4f0ddc2055fb42944a3089346e35117c">proximo</a>;</div>
-<div class="line"><span class="lineno">  163</span> </div>
-<div class="line"><span class="lineno">  164</span>        free(p);</div>
-<div class="line"><span class="lineno">  165</span>    }</div>
-<div class="line"><span class="lineno">  166</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  147</span>{</div>
+<div class="line"><span class="lineno">  148</span>    <a class="code hl_struct" href="structlista__no.html">ListaNo</a> *ant = NULL;</div>
+<div class="line"><span class="lineno">  149</span>    <a class="code hl_struct" href="structlista__no.html">ListaNo</a> *p = header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a>;</div>
+<div class="line"><span class="lineno">  150</span> </div>
+<div class="line"><span class="lineno">  151</span>    <span class="keywordflow">while</span> (p != NULL &amp;&amp; p-&gt;<a class="code hl_variable" href="structlista__no.html#a7a36422bc1461f8799760b08badfcfb7">info</a> != text)</div>
+<div class="line"><span class="lineno">  152</span>    {</div>
+<div class="line"><span class="lineno">  153</span>        ant = p;</div>
+<div class="line"><span class="lineno">  154</span>        p = p-&gt;<a class="code hl_variable" href="structlista__no.html#a4f0ddc2055fb42944a3089346e35117c">proximo</a>;</div>
+<div class="line"><span class="lineno">  155</span>    }</div>
+<div class="line"><span class="lineno">  156</span> </div>
+<div class="line"><span class="lineno">  157</span>    <span class="keywordflow">if</span> (p != NULL) {</div>
+<div class="line"><span class="lineno">  158</span>        <span class="keywordflow">if</span> (ant == NULL)</div>
+<div class="line"><span class="lineno">  159</span>            header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a> = p-&gt;<a class="code hl_variable" href="structlista__no.html#a4f0ddc2055fb42944a3089346e35117c">proximo</a>;</div>
+<div class="line"><span class="lineno">  160</span>        <span class="keywordflow">else</span> </div>
+<div class="line"><span class="lineno">  161</span>            ant-&gt;<a class="code hl_variable" href="structlista__no.html#a4f0ddc2055fb42944a3089346e35117c">proximo</a> = p-&gt;<a class="code hl_variable" href="structlista__no.html#a4f0ddc2055fb42944a3089346e35117c">proximo</a>;</div>
+<div class="line"><span class="lineno">  162</span> </div>
+<div class="line"><span class="lineno">  163</span>        free(p);</div>
+<div class="line"><span class="lineno">  164</span>    }</div>
+<div class="line"><span class="lineno">  165</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -502,14 +501,14 @@ Funções</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Retorna</dt><dd>Retorna um ponteiro para o primeiro nó válido da lista.</dd></dl>
 <p>Verifica se o ponteiro para o primeiro nó da lista é nulo. Se não for nulo, retorna o ponteiro para o primeiro nó. Caso contrário, imprime uma mensagem de erro e retorna NULL. </p>
-<div class="fragment"><div class="line"><span class="lineno">  214</span>                                           {</div>
-<div class="line"><span class="lineno">  215</span>    <span class="keywordflow">if</span>(header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a> != NULL)</div>
-<div class="line"><span class="lineno">  216</span>    <span class="keywordflow">return</span> header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a>;</div>
-<div class="line"><span class="lineno">  217</span>    </div>
-<div class="line"><span class="lineno">  218</span>    <a class="code hl_function" href="util_8c.html#abb09396ee13a44215695d146ba593be5">printError</a>(<span class="stringliteral">&quot;lista vazia&quot;</span>);</div>
-<div class="line"><span class="lineno">  219</span> </div>
-<div class="line"><span class="lineno">  220</span>    <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><span class="lineno">  221</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  213</span>                                           {</div>
+<div class="line"><span class="lineno">  214</span>    <span class="keywordflow">if</span>(header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a> != NULL)</div>
+<div class="line"><span class="lineno">  215</span>    <span class="keywordflow">return</span> header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a>;</div>
+<div class="line"><span class="lineno">  216</span>    </div>
+<div class="line"><span class="lineno">  217</span>    <a class="code hl_function" href="util_8c.html#abb09396ee13a44215695d146ba593be5">printError</a>(<span class="stringliteral">&quot;lista vazia&quot;</span>);</div>
+<div class="line"><span class="lineno">  218</span> </div>
+<div class="line"><span class="lineno">  219</span>    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  220</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -538,9 +537,9 @@ Funções</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Retorna</dt><dd>Retorna 1 se a lista está vazia, 0 caso contrário.</dd></dl>
 <p>Verifica se o ponteiro para o primeiro nó da lista é nulo. Se for nulo, a lista está vazia e a função retorna 1. Caso contrário, a lista não está vazia e a função retorna 0. </p>
-<div class="fragment"><div class="line"><span class="lineno">  179</span>{</div>
-<div class="line"><span class="lineno">  180</span>    <span class="keywordflow">return</span> (header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a> == NULL);</div>
-<div class="line"><span class="lineno">  181</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  178</span>{</div>
+<div class="line"><span class="lineno">  179</span>    <span class="keywordflow">return</span> (header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a> == NULL);</div>
+<div class="line"><span class="lineno">  180</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -580,17 +579,17 @@ Funções</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Retorna</dt><dd>Retorna 1 se o elemento pertence à lista, 0 caso contrário.</dd></dl>
 <p>Percorre a lista a partir do primeiro nó e compara a informação de cada nó com o elemento fornecido. A função assume que a informação dos nós é do tipo string. Se o elemento for encontrado, retorna 1; caso contrário, retorna 0. </p>
-<div class="fragment"><div class="line"><span class="lineno">  124</span>{</div>
-<div class="line"><span class="lineno">  125</span>    <a class="code hl_struct" href="structlista__no.html">ListaNo</a> *ptr = header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a>;</div>
-<div class="line"><span class="lineno">  126</span>    <span class="keywordflow">while</span>(ptr != NULL)</div>
-<div class="line"><span class="lineno">  127</span>    {</div>
-<div class="line"><span class="lineno">  128</span>        <span class="keywordflow">if</span> (ptr-&gt;<a class="code hl_variable" href="structlista__no.html#a34180076b08f65e91d4912823da88880">info</a> == text)</div>
-<div class="line"><span class="lineno">  129</span>            <span class="keywordflow">return</span> 1;</div>
-<div class="line"><span class="lineno">  130</span>        ptr = ptr-&gt;<a class="code hl_variable" href="structlista__no.html#a4f0ddc2055fb42944a3089346e35117c">proximo</a>;</div>
-<div class="line"><span class="lineno">  131</span>    }</div>
-<div class="line"><span class="lineno">  132</span> </div>
-<div class="line"><span class="lineno">  133</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno">  134</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  123</span>{</div>
+<div class="line"><span class="lineno">  124</span>    <a class="code hl_struct" href="structlista__no.html">ListaNo</a> *ptr = header-&gt;<a class="code hl_variable" href="structlista.html#af0b5e0d1be061b7120e60dfac885cde6">primeiro</a>;</div>
+<div class="line"><span class="lineno">  125</span>    <span class="keywordflow">while</span>(ptr != NULL)</div>
+<div class="line"><span class="lineno">  126</span>    {</div>
+<div class="line"><span class="lineno">  127</span>        <span class="keywordflow">if</span> (ptr-&gt;<a class="code hl_variable" href="structlista__no.html#a7a36422bc1461f8799760b08badfcfb7">info</a> == text)</div>
+<div class="line"><span class="lineno">  128</span>            <span class="keywordflow">return</span> 1;</div>
+<div class="line"><span class="lineno">  129</span>        ptr = ptr-&gt;<a class="code hl_variable" href="structlista__no.html#a4f0ddc2055fb42944a3089346e35117c">proximo</a>;</div>
+<div class="line"><span class="lineno">  130</span>    }</div>
+<div class="line"><span class="lineno">  131</span> </div>
+<div class="line"><span class="lineno">  132</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  133</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>

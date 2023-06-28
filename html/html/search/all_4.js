@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['exibirlog_0',['exibirLog',['../commands_8c.html#aeaec5ecab3b57770fd335262a7d1ba8c',1,'exibirLog(int showContent):&#160;commands.c'],['../commands_8h.html#aeaec5ecab3b57770fd335262a7d1ba8c',1,'exibirLog(int showContent):&#160;commands.c']]],
-  ['exibirlog_1',['exibirlog',['../versionador_8c.html#abf4b5d9ecda2f446293af59d99088505',1,'versionador.c']]]
+  ['database_2ec_0',['database.c',['../database_8c.html',1,'']]],
+  ['database_2eh_1',['database.h',['../database_8h.html',1,'']]],
+  ['directoryexists_2',['directoryExists',['../database_8c.html#a6d77151ddd12d32300de275deb0415f5',1,'directoryExists(const char *path):&#160;database.c'],['../database_8h.html#a6d77151ddd12d32300de275deb0415f5',1,'directoryExists(const char *path):&#160;database.c']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['version_0',['Version',['../struct_version.html',1,'']]]
+  ['raiz_0',['Raiz',['../struct_raiz.html',1,'']]]
 ];

@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['identifier_0',['identifier',['../struct_version.html#a1e8d4fd667de64a82779440621498c3f',1,'Version']]],
-  ['info_1',['info',['../structlista__no.html#a34180076b08f65e91d4912823da88880',1,'lista_no']]],
-  ['iniciar_2',['iniciar',['../versionador_8c.html#a9578c4a1aaa21df0131a4fbd46b49be2',1,'versionador.c']]],
-  ['iniciarversionador_3',['iniciarVersionador',['../commands_8c.html#a4d2dd7b285f4f229d11679504ccfcb07',1,'iniciarVersionador():&#160;commands.c'],['../commands_8h.html#a4d2dd7b285f4f229d11679504ccfcb07',1,'iniciarVersionador():&#160;commands.c']]]
+  ['generateuniqueidentifier_0',['generateUniqueIdentifier',['../util_8c.html#a72d4d2a982a2ba42f56f62bb7266898d',1,'generateUniqueIdentifier():&#160;util.c'],['../utils_8h.html#a72d4d2a982a2ba42f56f62bb7266898d',1,'generateUniqueIdentifier():&#160;util.c']]],
+  ['getcurrentversionidentifier_1',['getCurrentVersionIdentifier',['../database_8c.html#a2cd87cc8b64aa63e846ea58181aab7a5',1,'getCurrentVersionIdentifier():&#160;database.c'],['../database_8h.html#a2cd87cc8b64aa63e846ea58181aab7a5',1,'getCurrentVersionIdentifier():&#160;database.c']]],
+  ['getlogscontent_2',['getLogsContent',['../commands_8c.html#afa419d53953b8b69b8b62831ad8255a8',1,'getLogsContent():&#160;commands.c'],['../commands_8h.html#afa419d53953b8b69b8b62831ad8255a8',1,'getLogsContent():&#160;commands.c']]],
+  ['getsnapshotinfo_3',['getSnapshotInfo',['../database_8c.html#ad6ef2c6a7cc7035402586d864396008d',1,'getSnapshotInfo():&#160;database.c'],['../database_8h.html#ad6ef2c6a7cc7035402586d864396008d',1,'getSnapshotInfo():&#160;database.c']]],
+  ['getversioncontent_4',['getVersionContent',['../database_8c.html#a33f0cb5145da177bc6f95229eaa05f5a',1,'getVersionContent(const char *id, int showContent):&#160;database.c'],['../database_8h.html#af13ec5840c45b3643b4c494ad2213715',1,'getVersionContent(const char *identifier, int showContent):&#160;database.c']]],
+  ['getversionidentifier_5',['getVersionIdentifier',['../util_8c.html#a06f346cbb19b3e8418186b676f8b8b5a',1,'util.c']]]
 ];

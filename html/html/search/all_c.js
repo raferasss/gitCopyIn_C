@@ -1,13 +1,13 @@
 var searchData=
 [
-  ['readtextfile_0',['readTextFile',['../util_8c.html#ad69118b8ad0f71842378f1997e1a6a5c',1,'readTextFile(const char *name):&#160;util.c'],['../utils_8h.html#ad69118b8ad0f71842378f1997e1a6a5c',1,'readTextFile(const char *name):&#160;util.c']]],
-  ['registersnapshot_1',['registerSnapshot',['../database_8c.html#a918677cf693dde8088a1793fc5cea415',1,'registerSnapshot(const char *identifier, const char *commit):&#160;database.c'],['../database_8h.html#a2138ba36a70f958f2636aa42880f4b87',1,'registerSnapshot(const char *identifier, const char *text):&#160;database.c']]],
-  ['registra_2',['registra',['../versionador_8c.html#af8c0303ff8b79140ae8e7e9deb57e67c',1,'versionador.c']]],
-  ['registrarsnapshot_3',['registrarSnapshot',['../commands_8c.html#a7235c2a813b1ba295b85ec1d2826544d',1,'registrarSnapshot(const char *texto):&#160;commands.c'],['../commands_8h.html#a7235c2a813b1ba295b85ec1d2826544d',1,'registrarSnapshot(const char *texto):&#160;commands.c']]],
-  ['removedirectory_4',['removeDirectory',['../database_8c.html#a7c3ec9acd7bc538ce658dd6b8d5072cf',1,'removeDirectory(const char *path):&#160;database.c'],['../database_8h.html#a7c3ec9acd7bc538ce658dd6b8d5072cf',1,'removeDirectory(const char *path):&#160;database.c']]],
-  ['removefile_5',['removeFile',['../util_8c.html#a5628063ce7a14580bc43484f7bc6f63f',1,'removeFile(char *file):&#160;util.c'],['../utils_8h.html#a5628063ce7a14580bc43484f7bc6f63f',1,'removeFile(char *file):&#160;util.c']]],
-  ['renamedirectory_6',['renameDirectory',['../database_8c.html#a5ab8d436cba807a984bd177b2345bf28',1,'renameDirectory(const char *oldPath, const char *newPath):&#160;database.c'],['../database_8h.html#a5ab8d436cba807a984bd177b2345bf28',1,'renameDirectory(const char *oldPath, const char *newPath):&#160;database.c']]],
-  ['restorecurrentversion_7',['restoreCurrentVersion',['../commands_8c.html#ae15e48fad77840a372296fb093cb0d58',1,'restoreCurrentVersion():&#160;commands.c'],['../commands_8h.html#ae15e48fad77840a372296fb093cb0d58',1,'restoreCurrentVersion():&#160;commands.c']]],
-  ['restoreversionfiles_8',['restoreVersionFiles',['../database_8c.html#a2b86308c494025180053cc18cf4cdd1d',1,'restoreVersionFiles(const char *identifier, const char *backupPath):&#160;database.c'],['../database_8h.html#a2b86308c494025180053cc18cf4cdd1d',1,'restoreVersionFiles(const char *identifier, const char *backupPath):&#160;database.c']]],
-  ['reverterversaoatual_9',['reverterVersaoAtual',['../commands_8c.html#a35dabf1a4e62844344b1f73fbbf9cf91',1,'reverterVersaoAtual():&#160;commands.c'],['../commands_8h.html#a35dabf1a4e62844344b1f73fbbf9cf91',1,'reverterVersaoAtual():&#160;commands.c']]]
+  ['parent_0',['parent',['../struct_tree_node.html#ac829149512630da760b7e661b4b46011',1,'TreeNode']]],
+  ['parentname_1',['parentName',['../struct_tree_node.html#a93a3791688586c4584de1c4385a92f05',1,'TreeNode']]],
+  ['pertence_2',['pertence',['../lista_8c.html#a082ed80572cb3a76e625c7715a5bd9c2',1,'pertence(Lista *header, char *text):&#160;lista.c'],['../lista_8h.html#a082ed80572cb3a76e625c7715a5bd9c2',1,'pertence(Lista *header, char *text):&#160;lista.c']]],
+  ['primeiro_3',['primeiro',['../structlista.html#af0b5e0d1be061b7120e60dfac885cde6',1,'lista']]],
+  ['printbranchbyname_4',['printBranchByName',['../arvore_8c.html#aac2586c559de49cd89dbbedb6d9e1216',1,'printBranchByName(TreeNode *node, const char *name, const char *versionStop):&#160;arvore.c'],['../arvore_8h.html#aac2586c559de49cd89dbbedb6d9e1216',1,'printBranchByName(TreeNode *node, const char *name, const char *versionStop):&#160;arvore.c']]],
+  ['printerror_5',['printError',['../util_8c.html#abb09396ee13a44215695d146ba593be5',1,'printError(const char *message):&#160;util.c'],['../utils_8h.html#abb09396ee13a44215695d146ba593be5',1,'printError(const char *message):&#160;util.c']]],
+  ['printinfo_6',['printInfo',['../util_8c.html#a2ecc69cced4dcf1393217677224d08b7',1,'printInfo(const char *message):&#160;util.c'],['../utils_8h.html#a2ecc69cced4dcf1393217677224d08b7',1,'printInfo(const char *message):&#160;util.c']]],
+  ['printtree_7',['printTree',['../arvore_8c.html#ac5def1aa0d57fead4489c9ad48c1c588',1,'printTree(TreeNode *node, int depth):&#160;arvore.c'],['../arvore_8h.html#ac5def1aa0d57fead4489c9ad48c1c588',1,'printTree(TreeNode *node, int depth):&#160;arvore.c']]],
+  ['printtreecontent_8',['printTreeContent',['../arvore_8c.html#a444306a4e198f8a42e5e3bb9cf83ac67',1,'printTreeContent(TreeNode *node, int depth):&#160;arvore.c'],['../arvore_8h.html#a444306a4e198f8a42e5e3bb9cf83ac67',1,'printTreeContent(TreeNode *node, int depth):&#160;arvore.c']]],
+  ['proximo_9',['proximo',['../structlista__no.html#a4f0ddc2055fb42944a3089346e35117c',1,'lista_no']]]
 ];

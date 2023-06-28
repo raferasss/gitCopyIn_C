@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['writetextfile_0',['writeTextFile',['../util_8c.html#a8ac584ddf2ae0297798ad8a3ad12fab5',1,'writeTextFile(const char *filename, const char *content):&#160;util.c'],['../utils_8h.html#a8ac584ddf2ae0297798ad8a3ad12fab5',1,'writeTextFile(const char *filename, const char *content):&#160;util.c']]],
-  ['writetextfilenextline_1',['writeTextFileNextLine',['../util_8c.html#a5cd99d95703ef0d9e563c65c8086c98b',1,'writeTextFileNextLine(const char *name, const char *text):&#160;util.c'],['../utils_8h.html#a5cd99d95703ef0d9e563c65c8086c98b',1,'writeTextFileNextLine(const char *name, const char *text):&#160;util.c']]]
+  ['treebranch_0',['treeBranch',['../arvore_8c.html#a8a2ec775d95540eff0fe36f55531358a',1,'treeBranch(char *branch, TreeNode *root):&#160;arvore.c'],['../arvore_8h.html#a8a2ec775d95540eff0fe36f55531358a',1,'treeBranch(char *branch, TreeNode *root):&#160;arvore.c']]],
+  ['treebranchrecursiv_1',['treeBranchRecursiv',['../arvore_8c.html#a5c25d34e2575d7c3df9f16afc01531eb',1,'treeBranchRecursiv(char *branch, TreeNode *root, char *proxBranch, ListNode *listnodeRoot, char *versionStop):&#160;arvore.c'],['../arvore_8h.html#a5c25d34e2575d7c3df9f16afc01531eb',1,'treeBranchRecursiv(char *branch, TreeNode *root, char *proxBranch, ListNode *listnodeRoot, char *versionStop):&#160;arvore.c']]]
 ];

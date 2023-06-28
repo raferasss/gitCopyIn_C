@@ -28,10 +28,23 @@ void createDatabase() {
     writeTextFile(".versionador/atual.txt", "<INICIO>\nprincipal\nNenhum\n<FIM>");
     createDirectory(".versionador/snapshots");
 }
+
+/**
+ * @brief Verifica se um ramo existe no banco de dados.
+ * @param name Nome do ramo.
+ * @return 1 se o ramo existe, 0 caso contrário.
+ */
 int branchExists(char* name){
     printInfo("ola");
    return branchExistsInTree(name);
 }
+
+/**
+ * @brief Cria um novo ramo no banco de dados.
+ * @param name Nome do ramo.
+ * @param branchName Nome do ramo de origem.
+ * @param versionName Nome da versão de origem.
+ */
 
 void createBranchInDatabase(char* name, char *branchName, char *versionName){
     char contentAtual[200];
@@ -49,6 +62,12 @@ void createBranchInDatabase(char* name, char *branchName, char *versionName){
     sprintf(concatAtual, ".versionador/versions%s.txt", name);
     writeTextFile(concatAtual, "");
 }
+
+/**
+ * @brief Renomeia um ramo no banco de dados.
+ * @param branchName Nome do ramo a ser renomeado.
+ * @param newBranchName Novo nome do ramo.
+ */
 
 void renameBranchInDatabase(char* branchName, char* newBranchName) {
     // Verificar se o ramo existe no banco de dados
@@ -120,6 +139,11 @@ void renameBranchInDatabase(char* branchName, char* newBranchName) {
 
     printf("Ramo '%s' renomeado para '%s' com sucesso.\n", branchName, newBranchName);
 }
+
+/**
+ * @brief Remove um ramo do banco de dados.
+ * @param name Nome do ramo a ser removido.
+ */
 
 void removeBranchInDatabase(char* branchName) {
     

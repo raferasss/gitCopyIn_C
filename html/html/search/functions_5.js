@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['generateuniqueidentifier_0',['generateUniqueIdentifier',['../util_8c.html#a72d4d2a982a2ba42f56f62bb7266898d',1,'generateUniqueIdentifier():&#160;util.c'],['../utils_8h.html#a72d4d2a982a2ba42f56f62bb7266898d',1,'generateUniqueIdentifier():&#160;util.c']]],
-  ['getcurrentversionidentifier_1',['getCurrentVersionIdentifier',['../database_8c.html#a2cd87cc8b64aa63e846ea58181aab7a5',1,'getCurrentVersionIdentifier():&#160;database.c'],['../database_8h.html#a2cd87cc8b64aa63e846ea58181aab7a5',1,'getCurrentVersionIdentifier():&#160;database.c']]],
-  ['getlogscontent_2',['getLogsContent',['../commands_8c.html#acca09f6d20a6970f69737749de892f4b',1,'getLogsContent(char *file):&#160;commands.c'],['../commands_8h.html#acca09f6d20a6970f69737749de892f4b',1,'getLogsContent(char *file):&#160;commands.c']]],
-  ['getsnapshotinfo_3',['getSnapshotInfo',['../database_8c.html#ad6ef2c6a7cc7035402586d864396008d',1,'getSnapshotInfo():&#160;database.c'],['../database_8h.html#ad6ef2c6a7cc7035402586d864396008d',1,'getSnapshotInfo():&#160;database.c']]],
-  ['getversioncontent_4',['getVersionContent',['../database_8c.html#a33f0cb5145da177bc6f95229eaa05f5a',1,'getVersionContent(const char *id, int showContent):&#160;database.c'],['../database_8h.html#af13ec5840c45b3643b4c494ad2213715',1,'getVersionContent(const char *identifier, int showContent):&#160;database.c']]],
-  ['getversionidentifier_5',['getVersionIdentifier',['../util_8c.html#a06f346cbb19b3e8418186b676f8b8b5a',1,'util.c']]]
+  ['fileexists_0',['fileExists',['../util_8c.html#a5c3fee518af0ba8b435624e66e850f73',1,'fileExists(const char *filename):&#160;util.c'],['../utils_8h.html#a5c3fee518af0ba8b435624e66e850f73',1,'fileExists(const char *filename):&#160;util.c']]],
+  ['fillnode_1',['fillNode',['../util_8c.html#a47b771074091af4c6e8cc32b0a951e3e',1,'fillNode(char *name, char *initVersion, char *initParent, char *file):&#160;util.c'],['../utils_8h.html#a47b771074091af4c6e8cc32b0a951e3e',1,'fillNode(char *name, char *initVersion, char *initParent, char *file):&#160;util.c']]],
+  ['findnodeinlist_2',['findNodeInList',['../arvore_8c.html#a410e53c779bfc25fff2bd58bc772a2f6',1,'findNodeInList(ListNode *head, const char *name):&#160;arvore.c'],['../arvore_8h.html#a410e53c779bfc25fff2bd58bc772a2f6',1,'findNodeInList(ListNode *head, const char *name):&#160;arvore.c']]],
+  ['findnodeinlistbyinitversion_3',['findNodeInListByInitVersion',['../arvore_8c.html#a0887bda27835d26d673fcc20511f2234',1,'findNodeInListByInitVersion(ListNode *head, const char *version):&#160;arvore.c'],['../arvore_8h.html#a0887bda27835d26d673fcc20511f2234',1,'findNodeInListByInitVersion(ListNode *head, const char *version):&#160;arvore.c']]],
+  ['freelist_4',['freeList',['../arvore_8c.html#a48545768d19041e2a25d11cbe9658002',1,'freeList(ListNode *listHead):&#160;arvore.c'],['../arvore_8h.html#a48545768d19041e2a25d11cbe9658002',1,'freeList(ListNode *listHead):&#160;arvore.c']]],
+  ['freetree_5',['freeTree',['../arvore_8c.html#a88d4ac8357a8f57f7e0307523f674877',1,'freeTree(TreeNode *node):&#160;arvore.c'],['../arvore_8h.html#a88d4ac8357a8f57f7e0307523f674877',1,'freeTree(TreeNode *node):&#160;arvore.c']]]
 ];
