@@ -5,6 +5,7 @@
 #include <string.h>
 #include "../database/database.h"
 #include "../utils/lista.h"
+#include "../utils/arvore.h"
 
 
 /**
@@ -204,25 +205,10 @@ void  saveSnapshotFilesInContent(const char* identifier){
  * Libera a memória alocada.
  */
 
-void getLogsContent(char* file){
-    Lista* header = lst_cria();
-    lst_populateList(file, header);
-    ListaNo* ptr = lst_returnNodeValid(header);
-    if(ptr == NULL)
-    return;
-
-    char* info = lst_infoValid(ptr);
-    while (info != NULL)
-    {   
-    //printInfo(concatenatePaths("getLogsContent 100", info));
-        getVersionContent(info, 1);
-        ptr = lst_nextNode(ptr);
-        info = lst_infoValid(ptr);
-    }
-    
-    free(info);
-    free(ptr);
-    lst_libera(header);
+void getLogsContent(){
+    TreeNode* root = createTree(".versionador/content/dados.txt");
+    printTreeContent(root, 4);
+    freeTree(root);
     
 }
 
@@ -253,59 +239,32 @@ void changeVersion(const char* identifier) {
     }
 
     createDirectory(".versionador/backup");    
-    char path[100];
-    strcpy(path,concatenatePaths(".versionador/content/", identifier));
-    Lista *header = lst_cria();
-    searchDirectoryFiles(path, header);
-    ListaNo* ptr = lst_returnNodeValid(header);
-
     
-    if(ptr == NULL){
-    return;
-    }else{
-    
+    TreeNode* root = createTree(".versionador/content/dados.txt");
+    char name[100];
+    char file[100];
+    char version[100];
 
-    char* fileOrigin = lst_infoValid(ptr);
-    char copySec[100];
-    while (fileOrigin != NULL)
-    {   
-        strcpy(copySec, fileOrigin);
-        char *fileDest = concatenatePaths(".versionador/backup", copySec);
+    char paht[300];
+    char paht1[300];
+    char paht2[500];
+    
+    searchVersion(root, identifier, name, version, file);
+
+        sprintf(paht, "%s", file);
+        sprintf(paht1, ".versionador/content/%s/%s", name, version);
+        sprintf(paht2, ".versionador/content/%s/%s/%s", name, version, file);
+    
+        char *fileDest = concatenatePaths(".versionador/backup", paht);
         writeTextFile(fileDest, "");
-        copyFile(copySec, fileDest);
-        ptr = lst_nextNode(ptr);
-        fileOrigin = lst_infoValid(ptr);
+        copyFile(paht, fileDest);
         free(fileDest);
-    }
-    free(fileOrigin);
-    
-    }
+     
+        removeFile(paht);
+        writeTextFile(paht, "");
+        copyFile(paht2, paht);
 
-    searchDirectoryFiles(path, header); 
-    ptr = lst_returnNodeValid(header);
-
-    if(ptr == NULL){
-    return;
-    }else{
-    
-
-    char* fileOrigin = lst_infoValid(ptr);
-    
-    while (fileOrigin != NULL)
-    {   
-        char *fileContentOrigin = concatenatePaths(path, fileOrigin);
-        removeFile(fileOrigin);
-        writeTextFile(fileOrigin, "");
-        copyFile(fileContentOrigin, fileOrigin);
-        ptr = lst_nextNode(ptr);
-        fileOrigin = lst_infoValid(ptr);
-        free(fileContentOrigin);
-    }
-    free(fileOrigin);
-    
-    }
-
-    lst_libera(header);
+    freeTree(root);
 }
 
 /**
@@ -359,4 +318,19 @@ void restoreCurrentVersion() {
     printInfo("Os arquivos foram restaurados para a versão atual.");
 
     lst_libera(header);
+}
+void mostrarLogInCommands(char* identifier){
+    TreeNode* root = createTree(".versionador/content/dados.txt");
+    if(versionExists(identifier)){
+        printTree(root, 4);
+    }else if(branchExists(identifier)){
+        printBranchByName(root,identifier, NULL);
+    }else{
+        printError("");
+    }
+    freeTree(root);
+}
+void exibirLogInCommands(){
+    TreeNode* root = createTree(".versionador/content/dados.txt");
+    printTree(root, 4);
 }

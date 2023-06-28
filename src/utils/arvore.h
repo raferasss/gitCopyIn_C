@@ -21,12 +21,13 @@ void readMetadataFile(const char* fileName, ListNode** listHead, TreeNode** root
 void freeList(ListNode* listHead);
 void addVersionsToListAndConcatenate(ListNode** head, const char* name);
 TreeNode* createTree(const char* fileName);
-void searchVersion(TreeNode* node, const char* version);
+void searchVersion(TreeNode* node, const char* version,  char* name, char* versionName, char* file);
 void printBranchByName(TreeNode* node, const char* name, const char* versionStop);
 void treeBranchRecursiv(char* branch, TreeNode* root, char* proxBranch, ListNode* listnodeRoot, char* versionStop);
 void treeBranch(char* branch, TreeNode* root);
-void removeBranchFromFile(const char* branchName);
+void removeBranchFromFileReturnChildren(const char* branchName, Lista* children);
 void renameBranchFromFile( const char* currentBranchName, const char* newBranchName);
 int branchExistsInTree(char* branch);
+void printTreeContent(TreeNode* node, int depth);
 
 #endif

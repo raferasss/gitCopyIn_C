@@ -9,11 +9,13 @@ void mostrarVersao(const char* identificador);
 void mudarVersao(const char* identificador);
 void reverterVersaoAtual();
 void  saveSnapshotFilesInContent(const char* identifier);
-void getLogsContent(char* file);
+void getLogsContent();
 void changeVersion(const char* identifier);
 void restoreCurrentVersion();
 void createBranch(char* name);
 void removeBranch(char* branchName);
 void renameBranch(char* nameAtual,char* novoNome);
+void exibirLogInCommands();
+void mostrarLogInCommands(char* identifier);
 
 #endif  // COMMANDS_H

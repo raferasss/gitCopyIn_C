@@ -22,7 +22,6 @@ void alteraRamo(char* nameAtual, char* novoNome);
 
 int main(int argc, char *argv[]) {
     // Verifica o número de argumentos
-    // removeRamo("branch");
     if (argc < 2) {
         printf("Uso: versionador.exe <comando> [argumentos]\n");
         return 1;
@@ -72,13 +71,13 @@ int main(int argc, char *argv[]) {
         char *texto = argv[2];
         registra(texto);
     } else if (strcmp(comando, "log") == 0) {
-        for (int i = 2; i < argc; i++) {
+        exibirlog();
+        
+    for (int i = 2; i < argc; i++) {
         if (strcmp(argv[i], "--conteudo") == 0) {
             logComConteudo();
-        }else{
-            exibirlog();
         }
-        }
+    }
         
     } else if (strcmp(comando, "mostrar") == 0) {
         // Verifica se foi fornecido o identificador da versão
@@ -154,13 +153,7 @@ void registra(char* texto) {
  */
 
 void exibirlog() {
-    int numVersions = getSnapshotInfo();
-    printInfo("Exibindo log das versões:");
-
-    for (int i = 0; i < numVersions; i++) {
-        const char* versionIdentifier = getCurrentVersionIdentifier(i);
-        printf("Versão %d: %s\n", i, versionIdentifier);
-    }
+    exibirLogInCommands();
 }
 
 /**
@@ -168,20 +161,12 @@ void exibirlog() {
  */
 
 void logComConteudo() {
-    int numVersions = getSnapshotInfo();
-    printInfo("Exibindo conteúdo dos arquivos nas versões:");
-    getLogsContent(".versionador/versions.txt");
+    getLogsContent();
     
 }
 
-/**
- * @brief Mostra o conteúdo de uma versão específica.
- * 
- * @param identificador O identificador da versão.
- */
-
-void mostrar(char* identificador) {
-    getVersionContent(identificador, 1);
+void mostrar(char* indentfier){
+    mostrarLogInCommands(indentfier);
 }
 
 /**
@@ -193,7 +178,7 @@ void mostrar(char* identificador) {
 void mudar(char* identificador) {
     if (versionExists(identificador)) {
         changeVersion(identificador);
-    } else {
+    }else{
         printf("A versão %s não existe.", identificador);
     }
 }
@@ -230,7 +215,6 @@ void alteraRamo(char* nameAtual, char* novoNome){
 /**
  * @brief Muda para a versão atual.
  */
-
 void mudarAtual() {
     restoreCurrentVersion();
     printInfo("Versão atual revertida com sucesso.");

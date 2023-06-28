@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "utils.h"
+#include "lista.h"
 
 // Definição da estrutura do nó da árvore
 typedef struct TreeNode {
@@ -93,6 +94,47 @@ void addChild(TreeNode* parent, TreeNode* child) {
         sibling->nextSibling = child;
     }
 }
+void printTreeContent(TreeNode* node, int depth){
+    if (node == NULL)
+        return;
+    for (int i = 0; i < depth; i++)
+        printf("  ");
+    if(!(strcmp(node->initVersion, "") == 0)){
+        printf("No da Branch %s (%s)\n", node->name, node->initVersion);
+    }else{
+        char line[200];
+        printf("Branch %s -> vercao %s\n", node->name, node->version);
+        sprintf(line, ".versionador/content/%s/%s", node->name, node->version);
+
+    Lista *header = lst_cria();
+    searchDirectoryFiles(line, header);
+    ListaNo* ptr = lst_returnNodeValid(header);
+
+    
+    if(ptr == NULL){
+    return;
+    }else{
+    
+
+    char* fileOrigin = lst_infoValid(ptr);
+    char copySec[200];
+    while (fileOrigin != NULL)
+    {   
+        printf("\n");
+        for (int i = 0; i < depth; i++)
+        printf("  ");
+        sprintf(copySec, ".versionador/content/%s/%s/%s", node->name, node->version, fileOrigin);
+        printf("conteudo: %s\n", readTextFile(copySec));
+        ptr = lst_nextNode(ptr);
+        fileOrigin = lst_infoValid(ptr);
+    }
+    free(fileOrigin);
+    
+    }
+    }
+    printTreeContent(node->firstChild, depth + 3);
+    printTreeContent(node->nextSibling, depth);
+}
 
 // Função para imprimir a árvore
 void printTree(TreeNode* node, int depth) {
@@ -100,8 +142,12 @@ void printTree(TreeNode* node, int depth) {
         return;
     for (int i = 0; i < depth; i++)
         printf("  ");
-    printf("%s (%s) = %s\n", node->name, node->initVersion, node->version);
-    printTree(node->firstChild, depth + 1);
+    if(!(strcmp(node->initVersion, "") == 0)){
+        printf("No da Branch %s (%s)\n", node->name, node->initVersion);
+    }else{
+        printf("Branch %s -> vercao %s\n", node->name, node->version);
+    }
+    printTree(node->firstChild, depth + 3);
     printTree(node->nextSibling, depth);
 }
 
@@ -120,7 +166,7 @@ void addVersionsToList(const char* fileName, ListNode** listHead, const char* no
         if (node != NULL) {
             char line[200];
             char version[50];
-
+            fgets(line, sizeof(line), file); //linha lixo
             while (fgets(line, sizeof(line), file) != NULL) {
                 sscanf(line, "%s", version);
                 TreeNode* newNode = createNode(nodeName, "", version, "");
@@ -184,7 +230,7 @@ void freeList(ListNode* listHead) {
 
 void addVersionsToListAndConcatenate(ListNode** head, const char* name) {
     char filename[200];
-    sprintf(filename, "versions%s.txt", name);
+    sprintf(filename, ".versionador/versions%s.txt", name);
     addVersionsToList(filename, head, name);
 }
 
@@ -205,7 +251,7 @@ TreeNode* createTree(const char* fileName){
     return root;
 }
 
-void searchVersion(TreeNode* node, const char* version) {
+void searchVersion(TreeNode* node, const char* version,  char* name, char* versionName, char* file) {
     if (node == NULL)
         return;
 
@@ -213,17 +259,37 @@ void searchVersion(TreeNode* node, const char* version) {
         printf("Versão encontrada!\n");
         printf("Nome do nó: %s\n", node->name);
         printf("Versão: %s\n", node->version);
-        return;
+        strcpy(name, node->name);
+        strcpy(versionName, node->version);
+        
+
+        char line[200];
+    sprintf(line, ".versionador/content/%s/%s", node->name, node->version);
+    Lista *header = lst_cria();
+    searchDirectoryFiles(line, header);
+    ListaNo* ptr = lst_returnNodeValid(header);
+
+    
+    if(ptr == NULL){
+    return;
+    }else{
+    
+
+    char* fileOrigin = lst_infoValid(ptr);
+    printInfo(fileOrigin);
+    strcpy(file, fileOrigin);
+
+    free(fileOrigin);
+    }
     }
 
 
     // Recursivamente buscar na subárvore do primeiro filho
-    searchVersion(node->firstChild, version);
+    searchVersion(node->firstChild, version, name,  versionName, file );
 
     // Recursivamente buscar na subárvore do próximo irmão
-    searchVersion(node->nextSibling, version);
+    searchVersion(node->nextSibling, version ,name,  versionName, file);
 }
-
 
 void printBranchByName(TreeNode* node, const char* name, const char* versionStop) {
 
@@ -340,20 +406,10 @@ void renameBranchFromFile( const char* currentBranchName, const char* newBranchN
     // Ler o arquivo linha por linha
     while (fgets(line, sizeof(line), file) != NULL) {
         // Verificar se a linha contém "<INICIO>"
-        if (strcmp(line, "<INICIO>\n") == 0) {
-            // Ler as informações da ramificação
-            fgets(line, sizeof(line), file);  // Ler o nome da branch
-            line[strcspn(line, "\n")] = '\0';  // Remover a quebra de linha
-            
-            if (strcmp(line, currentBranchName) == 0) {
-                // Encontrou a ramificação a ser renomeada
-                // Escreve o novo nome no arquivo temporário
-                fprintf(tempFile, "<INICIO>\n%s\n", newBranchName);
-                continue;  // Pula para a próxima linha
-            }
-        }
-
-        // Escrever a linha atual no arquivo temporário
+        line[strcspn(line, "\n")] = '\0';
+        if(strcmp(line, currentBranchName)==0)
+        strcpy(line, newBranchName);
+        sprintf(line, "%s\n", line);
         fputs(line, tempFile);
     }
 
@@ -376,11 +432,12 @@ void renameBranchFromFile( const char* currentBranchName, const char* newBranchN
     printf("Renomeação da ramificação concluída com sucesso.\n");
 }
 
-void removeBranchFromFile(const char* branchName) {
+void removeBranchFromFileReturnChildren(const char* branchName, Lista* root) {
+    
+    int num = 0;
     char* fileName = ".versionador/content/dados.txt";
     FILE* file = fopen(fileName, "r");
     if (file == NULL) {
-        printf("Erro ao abrir o arquivo.\n");
         return;
     }
 
@@ -390,7 +447,6 @@ void removeBranchFromFile(const char* branchName) {
     FILE* tempFile = fopen(".versionador/content/temp.txt", "a");
     if (tempFile == NULL) {
         printf("Erro ao criar o arquivo temporário.\n");
-        fclose(file);
         return;
     }
 
@@ -409,8 +465,12 @@ void removeBranchFromFile(const char* branchName) {
             line[strcspn(line, "\n")] = '\0';
             line1[strcspn(line1, "\n")] = '\0';
             line2[strcspn(line2, "\n")] = '\0';  // Remover a quebra de linha
-            
-            if(strcmp(line, branchName) == 0){
+            printInfo("oi");
+            if(strcmp(line2, branchName) == 0){
+                char lineCop[200];
+                strcpy(lineCop, line);
+                lst_insere(root, lineCop);
+            }else if(strcmp(line, branchName) == 0){
                 char concat[600];
                 sprintf(concat, "<INICIO>\n%s\n%s\n<FIM>", line2, line1);
                 writeTextFile(".versionador/atual.txt", concat);
@@ -431,7 +491,7 @@ void removeBranchFromFile(const char* branchName) {
     // Fechar os arquivos
     fclose(file);
     fclose(tempFile);
-
+    
     // Remover o arquivo original
     if (remove(fileName) != 0) {
         printf("Erro ao remover o arquivo original.\n");
@@ -445,7 +505,7 @@ void removeBranchFromFile(const char* branchName) {
     }
 
 
-    
     printf("Remoção da ramificação concluída com sucesso.\n");
+    return;
 }
 

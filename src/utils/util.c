@@ -132,14 +132,13 @@ char* readTextFile(const char* name) {
             i++;
     }
     filename[j] = '\0';
-    printInfo(filename);
 
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
         printError("Failed to open file for reading.");
         return NULL;
     }
-
+    
     fseek(file, 0, SEEK_END);
     long fileLength = ftell(file);
     fseek(file, 0, SEEK_SET);
@@ -332,9 +331,11 @@ void removeFile(char* file) {
  */
 
 void searchDirectoryFiles(char* path, Lista* header){
-
         // Abrir a pasta de conteúdo
-        DIR* contentDir = opendir(path);
+        char pathe[200];
+        strcpy(pathe, path);
+        
+        DIR* contentDir = opendir(pathe);
         if (contentDir == NULL) {
             printError("Failed to open content directory.");
             return;
@@ -344,6 +345,7 @@ void searchDirectoryFiles(char* path, Lista* header){
         struct dirent* entry;
         while ((entry = readdir(contentDir)) != NULL) {
             if (entry->d_type == DT_REG) {  
+                printInfo(entry->d_name);
                  lst_insere(header, entry->d_name);
             }
         }

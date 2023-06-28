@@ -8,7 +8,7 @@
  * @brief Estrutura de nó da lista.
  */
 struct lista_no {
-    char* info;              /**< Informação do nó. */
+    char info[200];              /**< Informação do nó. */
     ListaNo* proximo;       /**< Ponteiro para o próximo nó. */
 };
 
@@ -47,7 +47,7 @@ Lista* lst_cria(void)
 void lst_insere(Lista *header, char* text)
 {
     ListaNo *novo = (ListaNo*) malloc(sizeof(ListaNo));
-    novo->info = text;
+    strcpy(novo->info, text);
     novo->proximo = header->primeiro;
     header->primeiro = novo;
 }
@@ -80,7 +80,6 @@ void lst_populateList(char* path, Lista* header){
             printInfo(palavra);
             ListaNo *novo = (ListaNo*) malloc(sizeof(ListaNo));
             size_t len1 = strlen(palavra);
-            novo->info = (char*)malloc(len1+1);
             strcpy(novo->info, palavra+1);
             novo->proximo = header->primeiro;
             header->primeiro = novo; // Imprime a palavra completa

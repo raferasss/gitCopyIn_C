@@ -27,7 +27,6 @@ void createDatabase() {
     fillNode("principal", "Nenhum", "Nenhum", ".versionador/content/dados.txt");
     writeTextFile(".versionador/atual.txt", "<INICIO>\nprincipal\nNenhum\n<FIM>");
     createDirectory(".versionador/snapshots");
-    writeTextFile(".versionador/versionsprincipal.txt", "");
 }
 int branchExists(char* name){
     printInfo("ola");
@@ -131,9 +130,33 @@ void removeBranchInDatabase(char* branchName) {
     }
 
     // Remover o ramo da árvore de versões
-    removeBranchFromFile(branchName);
+    Lista* root = lst_cria();
+    removeBranchFromFileReturnChildren(branchName, root);
 
     // Remover o diretório do ramo
+    
+    ListaNo* ptr = lst_returnNodeValid(root);
+    char* fileOrigin = lst_infoValid(ptr);
+    
+    while (fileOrigin != NULL)
+    {   
+        char branchPath[100];
+        sprintf(branchPath, ".versionador/content/%s", fileOrigin);
+        removeDirectory(branchPath);
+    
+        // Remover o arquivo de versões do ramo
+        char versionsPath[100];
+        sprintf(versionsPath, ".versionador/versions%s.txt", fileOrigin);
+        if (remove(versionsPath) != 0) {
+            printf("Failed to remove versions file for branch '%s'.\n", fileOrigin);
+        }
+        
+        ptr = lst_nextNode(ptr);
+        fileOrigin = lst_infoValid(ptr);
+    }
+    free(fileOrigin);
+    lst_libera(root);
+
     char branchPath[100];
     sprintf(branchPath, ".versionador/content/%s", branchName);
     removeDirectory(branchPath);
@@ -415,27 +438,28 @@ int directoryExists(const char* path) {
  * @return Identificador da versão atual.
  */
 char* getCurrentVersionIdentifier() {
-    char* versionsFile = ".versionador/versions.txt";
-    char* currentVersionIdentifier = NULL;
+    char line[200];
+    char* cuerrentCopy = (char*)malloc(sizeof(char)*200);
+    char cuerrent[200];
 
-    // Ler o identificador da versão atual do arquivo versions.txt
-    char* versionsText = readTextFile(versionsFile);
-    if (versionsText != NULL) {
-        // Obter a última linha do arquivo
-        char* lastLine1 = strrchr(versionsText, '\n');
-        char* lastLine;
-        strcpy(lastLine, lastLine1 + 1);
-        if (lastLine != NULL) {
-            // Obter o identificador da versão
-            size_t length = strlen(lastLine);
-            currentVersionIdentifier = (char*)malloc(length + 1);
-            strncpy(currentVersionIdentifier, lastLine, length);
-            currentVersionIdentifier[length] = '\0';
-        }
-        free(versionsText);
+    FILE* file = fopen(".versionador/atual.txt", "r");
+    if (file == NULL) {
+        printf("Erro ao abrir o arquivo de metadados.\n");
+        return NULL;
     }
 
-    return currentVersionIdentifier;
+    while (fgets(line, sizeof(line), file) != NULL) {
+        if (strcmp(line, "<INICIO>\n") == 0) {
+            fgets(line, sizeof(line), file);  // Ler o nome da branch
+            fgets(cuerrent, sizeof(cuerrent), file);  // Ler a versão da branch
+            cuerrent[strcspn(cuerrent, "\n")] = '\0';
+        }
+    }
+
+    fclose(file);
+
+    strcpy(cuerrentCopy, cuerrent);
+    return cuerrentCopy;
 }
 /**
  * @brief Copia um diretório e seu conteúdo para um destino específico.
