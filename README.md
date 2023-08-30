@@ -2,6 +2,9 @@
 
 O presente projeto trata-se de um clone do Git, uma ferramenta amplamente utilizada para controle de versão de código. Nossa missão consiste em desenvolver um versionador funcional, totalmente implementado em linguagem C. O projeto foi idealizado e executado por um grupo composto por três dedicados alunos do curso de Ciência da Computação, no segundo semestre de sua formação acadêmica. Estamos empenhados em aprimorar nossas habilidades de programação e adquirir um profundo entendimento dos princípios fundamentais de controle de versão, enquanto aplicamos os conhecimentos adquiridos até o momento em nosso curso. Com determinação e trabalho em equipe, buscamos alcançar resultados de qualidade e contribuir para a evolução do cenário de desenvolvimento de software.
 
+# VERSIONER
+
+This project is a clone of Git, a widely used tool for code version control. Our mission is to develop a functional versioner, fully implemented in C language. The project was idealized and executed by a group composed of three dedicated students of the Computer Science course, in the second semester of their academic training. We are committed to improving our programming skills and gaining a deep understanding of fundamental version control principles, while applying the knowledge acquired so far in our course. With determination and teamwork, we seek to achieve quality results and contribute to the evolution of the software development scenario.
 
 # ESTRUTURA
 A estrutura de pastas da `PRIMEIRA` versão é esta a seguir:
@@ -23,6 +26,28 @@ versionador/
 │   └── database.h        // Cabeçalho das funções do banco de dados
 └── README.md             // Documentação
 ```
+
+# STRUCTURE
+The `FIRST` version folder structure is as follows:
+```
+versioner/
+├── .versionador/
+│ ├── versions.txt // Version file
+│ └── content/ // Content folder of versioned files
+│ ├── file1.txt
+│ ├── file2.txt
+│ └── ...
+├── src/
+│ ├── versionador.c // Main program file
+│ ├── database.c // Functions for manipulating the database
+│ ├── commands.c // Functions for versioner commands
+│ ├── utils.c // Utility functions
+│ ├── utils.h // Utility functions header
+│ ├── commands.h // Command functions header
+│ └── database.h // Database functions header
+└── README.md // Documentation
+```
+
 ### PARA RODAR O CÓDIGO
 `tasks.json`
 ```json
@@ -61,6 +86,46 @@ versionador/
 	"version":  "2.0.0"
 }
 ```
+
+### TO RUN THE CODE
+`tasks.json`
+```json
+{
+	"tasks": [
+		{
+		"type":  "cppbuild",
+		"label":  "C/C++: gcc-11 arquivo de build ativo",
+		"command":  "/usr/bin/gcc-11",
+		"args": [
+			"-fdiagnostics-color=always",
+			"-g",
+			"-I${workspaceFolder}/src/utils",
+			"-I${workspaceFolder}/src/database",
+			"-I${workspaceFolder}/src/commands",
+			"${workspaceFolder}/src/commands/*.c",
+			"${workspaceFolder}/src/database/*.c",
+			"${workspaceFolder}/src/utils/*.c",
+			"${fileDirname}/*.c",
+			"-o",
+			"${fileDirname}/${fileBasenameNoExtension}"
+		],
+		"options": {
+			"cwd":  "${fileDirname}"
+		},
+		"problemMatcher": [
+			"$gcc"
+		],
+		"group": {
+			"kind":  "build",
+			"isDefault":  true
+		},
+		"detail":  "Tarefa gerada pelo Depurador."
+		}
+	],
+	"version":  "2.0.0"
+}
+```
+
 
 ## INTEGRANTES
 
